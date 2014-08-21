@@ -19,7 +19,7 @@ class VersionNumberingAnalyzer
   attr_accessor :project, :version, :releaseHistory, :releaseHistories, :versionPattern
   
   def initialize(project = nil)
-    @versionPattern = /^(\D*)?(\d+)(\.(\d+))?(\.(\d+))?(\.(\d+))?(\.(\d+))?((-?((\D*)(\d*)))?(\D*)?)?$/
+    @versionPattern = /^(\D*)?(\d+)([\._]([\dx]+))?([\._]([\dx]+))?([\._]([\dx]+))?([\._]([\dx]+))?(([-_\.]?((\D*)(\d*)))?(\D*)?)?$/
     @releaseHistories = ReleaseHistories.new.releaseHistories
     @project = project
   end
@@ -85,7 +85,6 @@ class VersionNumberingAnalyzer
             end
           end
         end
-        
       }
     }
     vi
@@ -108,7 +107,7 @@ class VersionNumberingAnalyzer
   def_each @@metrics.keys do |metric_method|
     @@versionCompoundMethods.map { |method_name,id| 
 #      method_name.to_s + " => " + @@metrics[metric_method].call(getCompounds.map{|row| row[id]}).to_s
-      @@metrics[metric_method].call(getCompounds.map{|row| row[id]})
+      @@metrics[metric_method].call(getCompounds.map{|row| row[id] unless row.nil?})
     }
   end
   
