@@ -137,6 +137,13 @@ class VersionNumberingRegexpTest < Test::Unit::TestCase
     assert_equal("1", @vna.thirdVersionCompound)
     assert_nil(@vna.fourthVersionCompound)
     assert_equal("RC", @vna.suffixLabelWithNumber)
+    @vna.version = 'RHEL 5 Update 11'
+    assert_equal("RHEL 5 Update 11", @vna.fullVersion)
+    assert_equal("5", @vna.firstVersionCompound)
+    assert_nil(@vna.secondVersionCompound)
+    assert_nil(@vna.thirdVersionCompound)
+    assert_nil(@vna.fourthVersionCompound)
+    assert_equal("11", @vna.suffixNumber)
   end
   
 end
