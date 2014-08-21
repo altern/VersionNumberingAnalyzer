@@ -1,4 +1,4 @@
-#$:.unshift File.join(File.dirname(__FILE__),'..','lib')
+#arr$:.unshift File.join(File.dirname(__FILE__),'..','lib')
 
 class Utils
   def self.readFileToArray(file)
