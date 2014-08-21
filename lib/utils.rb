@@ -4,7 +4,7 @@ class Utils
   def self.readFileToArray(file)
     arr = []
     File.foreach(file) do |line|
-      arr << line
+      arr << line.strip
     end
     return arr
   end
