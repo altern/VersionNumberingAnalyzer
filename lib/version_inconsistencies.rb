@@ -5,11 +5,11 @@ class VersionInconsistencies
   
   def initialize
     @vna = VersionNumberingAnalyzer.new
-    @increments = Array.new(@vna.versionCompoundMethods.length)
-    @cycles = Array.new(@vna.versionCompoundMethods.length)
-    @jumps = Array.new(@vna.versionCompoundMethods.length)
-    @cycleLengths = Array.new(@vna.versionCompoundMethods.length)
-    @emptyJumps = Array.new(@vna.versionCompoundMethods.length)
+    @increments = Array.new(@vna.versionCompoundMethods.length, 0)
+#    @cycles = Array.new(@vna.versionCompoundMethods.length, 0)
+    @jumps = Array.new(@vna.versionCompoundMethods.length, 0)
+    @cycleLengths = Array.new(@vna.versionCompoundMethods.length, [])
+    @emptyJumps = Array.new(@vna.versionCompoundMethods.length, 0)
   end
   
   def incrementVersionCompound(compoundId)
@@ -19,15 +19,15 @@ class VersionInconsistencies
       @increments[compoundId] = 1
     end
   end
-  
-  def incrementCycle(compoundId)
-    if !@cycles[compoundId].nil?
-      @cycles[compoundId] += 1
-    else
-      @cycles[compoundId] = 1
-    end
-  end
-  
+#  
+#  def incrementCycle(compoundId)
+#    if !@cycles[compoundId].nil?
+#      @cycles[compoundId] += 1
+#    else
+#      @cycles[compoundId] = 1
+#    end
+#  end
+#  
   def incrementJump(compoundId)
     if !@jumps[compoundId].nil?
       @jumps[compoundId] += 1
@@ -37,7 +37,7 @@ class VersionInconsistencies
   end
   
   def addCycleLength(compoundId, length)
-    if @cycleLengths[compoundId].nil?
+    if @cycleLengths[compoundId].empty?
       @cycleLengths[compoundId] = [length]
     else
       @cycleLengths[compoundId] << length
@@ -60,15 +60,15 @@ class VersionInconsistencies
       @increments
     end
   end
-  
-  def cycles(*args) 
-    if args.length == 1
-      compoundId = args[0]
-      @cycles[compoundId] unless @cycles[compoundId].nil?
-    else
-      @cycles
-    end
-  end
+#  
+#  def cycles(*args) 
+#    if args.length == 1
+#      compoundId = args[0]
+#      @cycles[compoundId] unless @cycles[compoundId].nil?
+#    else
+#      @cycles
+#    end
+#  end
   
   def jumps(*args) 
     if args.length == 1

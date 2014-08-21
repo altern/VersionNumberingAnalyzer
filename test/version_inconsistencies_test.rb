@@ -17,7 +17,7 @@ class VersionInconsistenciesTest < Test::Unit::TestCase
   
   def test_initialize
     assert_equal(@vna.versionCompoundMethods.length, @vi.increments.length)
-    assert_equal(@vna.versionCompoundMethods.length, @vi.cycles.length)
+#    assert_equal(@vna.versionCompoundMethods.length, @vi.cycles.length)
     assert_equal(@vna.versionCompoundMethods.length, @vi.jumps.length)
     assert_equal(@vna.versionCompoundMethods.length, @vi.cycleLengths.length)
     assert_equal(@vna.versionCompoundMethods.length, @vi.emptyJumps.length)
@@ -47,29 +47,29 @@ class VersionInconsistenciesTest < Test::Unit::TestCase
     assert_equal(2, @vi.increments(@vna.versionCompoundMethods[:suffixNumber]))
   end
   
-  def test_increment_cycle
-    @vi.incrementCycle(@vna.versionCompoundMethods[:firstVersionCompound])
-    assert_equal(1, @vi.cycles(@vna.versionCompoundMethods[:firstVersionCompound]))
-    @vi.incrementCycle(@vna.versionCompoundMethods[:secondVersionCompound])
-    assert_equal(1, @vi.cycles(@vna.versionCompoundMethods[:secondVersionCompound]))
-    @vi.incrementCycle(@vna.versionCompoundMethods[:thirdVersionCompound])
-    assert_equal(1, @vi.cycles(@vna.versionCompoundMethods[:thirdVersionCompound]))
-    @vi.incrementCycle(@vna.versionCompoundMethods[:fourthVersionCompound])
-    assert_equal(1, @vi.cycles(@vna.versionCompoundMethods[:fourthVersionCompound]))
-    @vi.incrementCycle(@vna.versionCompoundMethods[:suffixNumber])
-    assert_equal(1, @vi.cycles(@vna.versionCompoundMethods[:suffixNumber]))
-    
-    @vi.incrementCycle(@vna.versionCompoundMethods[:firstVersionCompound])
-    assert_equal(2, @vi.cycles(@vna.versionCompoundMethods[:firstVersionCompound]))
-    @vi.incrementCycle(@vna.versionCompoundMethods[:secondVersionCompound])
-    assert_equal(2, @vi.cycles(@vna.versionCompoundMethods[:secondVersionCompound]))
-    @vi.incrementCycle(@vna.versionCompoundMethods[:thirdVersionCompound])
-    assert_equal(2, @vi.cycles(@vna.versionCompoundMethods[:thirdVersionCompound]))
-    @vi.incrementCycle(@vna.versionCompoundMethods[:fourthVersionCompound])
-    assert_equal(2, @vi.cycles(@vna.versionCompoundMethods[:fourthVersionCompound]))
-    @vi.incrementCycle(@vna.versionCompoundMethods[:suffixNumber])
-    assert_equal(2, @vi.cycles(@vna.versionCompoundMethods[:suffixNumber]))
-  end
+#  def test_increment_cycle
+#    @vi.incrementCycle(@vna.versionCompoundMethods[:firstVersionCompound])
+#    assert_equal(1, @vi.cycles(@vna.versionCompoundMethods[:firstVersionCompound]))
+#    @vi.incrementCycle(@vna.versionCompoundMethods[:secondVersionCompound])
+#    assert_equal(1, @vi.cycles(@vna.versionCompoundMethods[:secondVersionCompound]))
+#    @vi.incrementCycle(@vna.versionCompoundMethods[:thirdVersionCompound])
+#    assert_equal(1, @vi.cycles(@vna.versionCompoundMethods[:thirdVersionCompound]))
+#    @vi.incrementCycle(@vna.versionCompoundMethods[:fourthVersionCompound])
+#    assert_equal(1, @vi.cycles(@vna.versionCompoundMethods[:fourthVersionCompound]))
+#    @vi.incrementCycle(@vna.versionCompoundMethods[:suffixNumber])
+#    assert_equal(1, @vi.cycles(@vna.versionCompoundMethods[:suffixNumber]))
+#    
+#    @vi.incrementCycle(@vna.versionCompoundMethods[:firstVersionCompound])
+#    assert_equal(2, @vi.cycles(@vna.versionCompoundMethods[:firstVersionCompound]))
+#    @vi.incrementCycle(@vna.versionCompoundMethods[:secondVersionCompound])
+#    assert_equal(2, @vi.cycles(@vna.versionCompoundMethods[:secondVersionCompound]))
+#    @vi.incrementCycle(@vna.versionCompoundMethods[:thirdVersionCompound])
+#    assert_equal(2, @vi.cycles(@vna.versionCompoundMethods[:thirdVersionCompound]))
+#    @vi.incrementCycle(@vna.versionCompoundMethods[:fourthVersionCompound])
+#    assert_equal(2, @vi.cycles(@vna.versionCompoundMethods[:fourthVersionCompound]))
+#    @vi.incrementCycle(@vna.versionCompoundMethods[:suffixNumber])
+#    assert_equal(2, @vi.cycles(@vna.versionCompoundMethods[:suffixNumber]))
+#  end
   
   def test_increment_jump
     @vi.incrementJump(@vna.versionCompoundMethods[:firstVersionCompound])
