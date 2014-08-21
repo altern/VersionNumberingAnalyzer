@@ -19,7 +19,7 @@ class VersionNumberingAnalyzer
   attr_accessor :project, :version, :releaseHistory, :releaseHistories, :versionPattern
   
   def initialize(project = nil)
-    @versionPattern = /^(\D*)?(\d+)([\._]([\dx]+))?([\._]([\dx]+))?([\._]([\dx]+))?([\._]([\dx]+))?(([-_\.]?((\D*)(\d*)))?(\D*)?)?$/
+    @versionPattern = /^(\D*)?(\d+)([\._\s]([\dx]+))?([\._]([\dx]+))?([\._]([\dx]+))?([\._]([\dx]+))?(([-_\.\s]?((\D*)(\d*)))?(\D*)?)?$/
     @releaseHistories = ReleaseHistories.new.releaseHistories
     @project = project
   end

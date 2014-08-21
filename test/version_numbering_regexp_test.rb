@@ -88,4 +88,55 @@ class VersionNumberingRegexpTest < Test::Unit::TestCase
     assert_equal("78", @vna.fourthVersionCompound)
   end
   
+  def test_version_number_placeholder
+    @vna.version = '5.x.0'
+    assert_equal("5.x.0", @vna.fullVersion)
+    assert_equal("5", @vna.firstVersionCompound)
+    assert_equal("x", @vna.secondVersionCompound)
+    assert_equal("0", @vna.thirdVersionCompound)
+    assert_nil(@vna.fourthVersionCompound)
+    @vna.version = '1.x.x'
+    assert_equal("1.x.x", @vna.fullVersion)
+    assert_equal("1", @vna.firstVersionCompound)
+    assert_equal("x", @vna.secondVersionCompound)
+    assert_equal("x", @vna.thirdVersionCompound)
+    assert_nil(@vna.fourthVersionCompound)
+    @vna.version = '21.x.0.x'
+    assert_equal("21.x.0.x", @vna.fullVersion)
+    assert_equal("21", @vna.firstVersionCompound)
+    assert_equal("x", @vna.secondVersionCompound)
+    assert_equal("0", @vna.thirdVersionCompound)
+    assert_equal("x", @vna.fourthVersionCompound)
+  end
+  
+  def test_separators
+    @vna.version = 'v_3.4.5_p34'
+    assert_equal("v_3.4.5_p34", @vna.fullVersion)
+    assert_equal("3", @vna.firstVersionCompound)
+    assert_equal("4", @vna.secondVersionCompound)
+    assert_equal("5", @vna.thirdVersionCompound)
+    assert_nil(@vna.fourthVersionCompound)
+    assert_equal("p34", @vna.suffixLabelWithNumber)
+    @vna.version = 'a1.2.b51'
+    assert_equal("a1.2.b51", @vna.fullVersion)
+    assert_equal("1", @vna.firstVersionCompound)
+    assert_equal("2", @vna.secondVersionCompound)
+    assert_nil(@vna.thirdVersionCompound)
+    assert_nil(@vna.fourthVersionCompound)
+    assert_equal("b51", @vna.suffixLabelWithNumber)
+    @vna.version = 'standalone_3_2_51'
+    assert_equal("standalone_3_2_51", @vna.fullVersion)
+    assert_equal("3", @vna.firstVersionCompound)
+    assert_equal("2", @vna.secondVersionCompound)
+    assert_equal("51", @vna.thirdVersionCompound)
+    assert_nil(@vna.fourthVersionCompound)
+    @vna.version = 'R 2.11.1 RC'
+    assert_equal("R 2.11.1 RC", @vna.fullVersion)
+    assert_equal("2", @vna.firstVersionCompound)
+    assert_equal("11", @vna.secondVersionCompound)
+    assert_equal("1", @vna.thirdVersionCompound)
+    assert_nil(@vna.fourthVersionCompound)
+    assert_equal("RC", @vna.suffixLabelWithNumber)
+  end
+  
 end
