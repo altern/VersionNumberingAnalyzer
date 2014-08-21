@@ -2,6 +2,7 @@
 # To change this template file, choose Tools | Templates
 # and open the template in the editor.
 require_relative 'release_histories'
+require 'version_inconsistencies'
 
 class Class
  def def_each(method_names, &block)
@@ -57,6 +58,38 @@ class VersionNumberingAnalyzer
       { uniq => ((arr.find_all{ |i| i == uniq}.length.to_f/arr.length*100).round(2)).to_s + "%" }
     }.reduce Hash.new, :merge },
   }
+  
+  def try_to_i(str, default = nil)
+    str =~ /^-?\d+$/ ? str.to_i : default
+  end
+  
+  def getIncrementMetrics
+    vi = VersionInconsistencies.new
+    @@versionCompoundMethods.each { |key, compoundId|
+      compound = getCompoundById(compoundId)
+      compound.each_with_index { |value, i|
+        if i != 0
+          curr = try_to_i(compound[i])
+          prev = try_to_i(compound[i-1])
+          if curr.nil? ^ prev.nil?
+            vi.incrementEmptyJump(compoundId)
+          elsif !curr.nil? && !prev.nil?
+            if (curr - prev == 1) then
+              vi.incrementVersionCompound(compoundId)
+            elsif (curr - prev >= 2 )
+              vi.incrementJump(compoundId)
+            elsif curr < prev 
+              if curr > 0
+                vi.incrementJump(compoundId)
+              end
+            end
+          end
+        end
+        
+      }
+    }
+    vi
+  end
   
   def version(version = nil) 
     @version = version
@@ -128,4 +161,5 @@ class VersionNumberingAnalyzer
       }.flatten
     end
   end
+  
 end
