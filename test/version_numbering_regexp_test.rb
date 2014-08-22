@@ -144,6 +144,14 @@ class VersionNumberingRegexpTest < Test::Unit::TestCase
     assert_nil(@vna.thirdVersionCompound)
     assert_nil(@vna.fourthVersionCompound)
     assert_equal("11", @vna.suffixNumber)
+    @vna.version = "REL_1.10-rc-1"
+    assert_equal("REL_1.10-rc-1", @vna.fullVersion)
+    assert_equal("1", @vna.firstVersionCompound)
+    assert_equal("10", @vna.secondVersionCompound)
+    assert_nil(@vna.thirdVersionCompound)
+    assert_nil(@vna.fourthVersionCompound)
+    assert_equal("rc", @vna.suffixLabel)
+    assert_equal("1", @vna.suffixNumber)
   end
   
 end

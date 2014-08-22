@@ -4,6 +4,16 @@
 require_relative 'release_histories'
 require 'version_inconsistencies'
 
+# TODOs:
+# how far do versions jump?
+# empty jumps - expansions vs reductions
+# metrics of jump severity
+# aggregate metric for version compound jumps
+# metrics of soft ambiguity
+# come up with megalomania indicator 
+# come up with indicator for soft megalomania (intermediate RCs)
+
+
 class Class
  def def_each(method_names, &block)
    method_names.each do |method_name|
@@ -19,7 +29,7 @@ class VersionNumberingAnalyzer
   attr_accessor :project, :version, :releaseHistory, :releaseHistories, :versionPattern
   
   def initialize(project = nil)
-    @versionPattern = /^(\D*)?(\d+)([\._\s]([\dx]+))?([\._]([\dx]+))?([\._]([\dx]+))?([\._]([\dx]+))?(([-_\.\s]?((\D*)(\d*)))?(\D*)?)?$/
+    @versionPattern = /^(\D*)?(\d+)([\._\s]([\dx]+))?([\._]([\dx]+))?([\._]([\dx]+))?([\._]([\dx]+))?(([-_\.\s]?((\w*)[-_\s]?(\d*)))?(\D*)?)?$/
     @releaseHistories = ReleaseHistories.new.releaseHistories
     @project = project
   end
@@ -70,6 +80,9 @@ class VersionNumberingAnalyzer
       compound.each_with_index { |value, i|
         if i != 0
           curr = try_to_i(compound[i])
+          if curr == 'x'
+            vi.incrementVersionPlaceholder
+          end
           prev = try_to_i(compound[i-1])
           if curr.nil? ^ prev.nil?
             vi.incrementEmptyJump(compoundId)
