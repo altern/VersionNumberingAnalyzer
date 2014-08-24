@@ -100,4 +100,5 @@ class VersionNumberingAnalyzerTest < Test::Unit::TestCase
 #    assert_equal([0], @vna.getIncrementMetrics.cycleLengths[@vna.versionCompoundMethods[:secondVersionCompound]])
 #    assert_equal([3,2], @vna.getIncrementMetrics.cycleLengths[@vna.versionCompoundMethods[:thirdVersionCompound]])
   end
+  
 end

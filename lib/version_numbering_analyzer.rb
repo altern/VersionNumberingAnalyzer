@@ -3,6 +3,8 @@
 # and open the template in the editor.
 require_relative 'release_histories'
 require 'version_inconsistencies'
+require 'version_number'
+require 'utils'
 
 # TODOs:
 # how far do versions jump?
@@ -14,22 +16,12 @@ require 'version_inconsistencies'
 # come up with indicator for soft megalomania (intermediate RCs)
 
 
-class Class
- def def_each(method_names, &block)
-   method_names.each do |method_name|
-     define_method method_name do
-        instance_exec method_name, &block
-     end
-   end
- end
-end
-
 class VersionNumberingAnalyzer
   
   attr_accessor :project, :version, :releaseHistory, :releaseHistories, :versionPattern
   
   def initialize(project = nil)
-    @versionPattern = /^(\D*)?(\d+)([\._\s]([\dx]+))?([\._]([\dx]+))?([\._]([\dx]+))?([\._]([\dx]+))?(([-_\.\s]?((\w*)[-_\s]?(\d*)))?(\D*)?)?$/
+    @versionPattern = /^(\D*)?(\d+)([\._\s]([\dx]+))?([\._]([\dx]+))?([\._]([\dx]+))?([\._]([\dx]+))?(([-_\.\s]?(([a-zA-Z]*)[-_\s]?(\d*)))?(\D*)?)?$/
     @releaseHistories = ReleaseHistories.new.releaseHistories
     @project = project
   end
@@ -57,6 +49,10 @@ class VersionNumberingAnalyzer
     @@versionCompoundMethods 
   end
   
+  def self.versionCompoundMethods 
+    @@versionCompoundMethods 
+  end
+  
   @@stats = {
     :parsedVersions => Proc.new {|arr| arr.find_all{ |x| !x.nil? } },
   }
@@ -68,10 +64,6 @@ class VersionNumberingAnalyzer
       { uniq => ((arr.find_all{ |i| i == uniq}.length.to_f/arr.length*100).round(2)).to_s + "%" }
     }.reduce Hash.new, :merge },
   }
-  
-  def try_to_i(str, default = nil)
-    str =~ /^-?\d+$/ ? str.to_i : default
-  end
   
   def getIncrementMetrics
     vi = VersionInconsistencies.new
@@ -101,6 +93,35 @@ class VersionNumberingAnalyzer
       }
     }
     vi
+  end
+  
+  def getMegalomaniaSeverities
+    vi = VersionInconsistencies.new
+    if !@project.nil?
+      releaseHistory = @releaseHistories[@project]
+      releaseHistory.each_with_index { |value,i| 
+        if i != 0 
+          version1 = releaseHistory[i-1]
+          version2 = releaseHistory[i]
+          severity = vi.versionMegalomaniaSeverity(version1, version2)
+          if (severity != 0)
+            vi.addMegalomaniaSeverity(severity)
+          end
+        end
+      }
+    elsif !@releaseHistory.nil? 
+      @releaseHistory.each_with_index { |value,i| 
+        if i != 0 
+          version1 = @releaseHistory[i-1]
+          version2 = @releaseHistory[i]
+          severity = vi.versionMegalomaniaSeverity(VersionNumber.new(version1), VersionNumber.new(version2))
+          if (severity != 0)
+            vi.addMegalomaniaSeverity(severity)
+          end
+        end
+      }
+    end
+    vi.megalomaniaSeverities
   end
   
   def version(version = nil) 
@@ -139,6 +160,8 @@ class VersionNumberingAnalyzer
           @@versionCompoundMethods.map{|method,id| matches[id]}
         end
       }
+    elsif !@version.nil?
+      @versionPattern.match(@version)
     end 
   end
   
