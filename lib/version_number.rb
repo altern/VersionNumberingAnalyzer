@@ -17,7 +17,9 @@ class VersionNumber
   end
   
   def zeroOrNil?(key)
-    @versionNumber[@vna.versionCompoundMethods[key]].nil? || @versionNumber[@vna.versionCompoundMethods[key]] == "0"
+    if !@versionNumber.nil?
+      @versionNumber[@vna.versionCompoundMethods[key]].nil? || @versionNumber[@vna.versionCompoundMethods[key]] == "0"
+    end
   end
   
   @@versionCompoundMethods = {
