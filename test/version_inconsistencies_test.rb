@@ -7,6 +7,7 @@ $:.unshift File.join(File.dirname(__FILE__),'..','lib')
 require 'test/unit'
 require 'version_inconsistencies'
 require 'version_numbering_analyzer'
+require 'version_number'
 
 class VersionInconsistenciesTest < Test::Unit::TestCase
   
@@ -141,6 +142,25 @@ class VersionInconsistenciesTest < Test::Unit::TestCase
     assert_equal(2, @vi.emptyJumps(@vna.versionCompoundMethods[:fourthVersionCompound]))
     @vi.incrementEmptyJump(@vna.versionCompoundMethods[:suffixNumber])
     assert_equal(2, @vi.emptyJumps(@vna.versionCompoundMethods[:suffixNumber]))
+  end
+  
+  def test_version_megalomania_severity
+    severity = @vi.versionMegalomaniaSeverity(VersionNumber.new("1.2.1"), VersionNumber.new("1.3.0"))
+    assert_equal(1, severity)
+    severity = @vi.versionMegalomaniaSeverity(VersionNumber.new("1.3.4"), VersionNumber.new("2.0.0"))
+    assert_equal(2, severity)
+    severity = @vi.versionMegalomaniaSeverity(VersionNumber.new("1.3.4.6"), VersionNumber.new("2.0.0"))
+    assert_equal(3, severity)
+    severity = @vi.versionMegalomaniaSeverity(VersionNumber.new("1.3.4.6-rc4"), VersionNumber.new("2.0.0.0-rc0"))
+    assert_equal(4, severity)
+  end
+  
+  def test_add_megalomania_severities
+    assert_equal [], @vi.megalomaniaSeverities
+    @vi.addMegalomaniaSeverity(2)
+    assert_equal [2], @vi.megalomaniaSeverities
+    @vi.addMegalomaniaSeverity(3)
+    assert_equal [2, 3], @vi.megalomaniaSeverities
   end
   
 end
