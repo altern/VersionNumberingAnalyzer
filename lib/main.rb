@@ -3,7 +3,7 @@
 # and open the template in the editor.
 $:.unshift File.join(File.dirname(__FILE__),'..','lib')
 
-require_relative "version_numbering_analyzer"
+require "version_numbering_analyzer"
 require 'utils'
 
 vna = VersionNumberingAnalyzer.new
@@ -11,7 +11,7 @@ vna = VersionNumberingAnalyzer.new
 #puts vna.fullVersion
 #puts vna.getCompounds
 #puts vna.fullSuffix
-#vna.releaseHistory = Utils.readFileToArray('../test/git_release_history.txt')
+vna.releaseHistory = Utils.readFileToArray('../test/git_release_history.txt')
 
 #puts "Compounds:"
 #puts vna.getCompounds.map{|matches| matches.each_with_index.map { |item,i| i.to_s + ": " + item.to_s }.join(', ')}
@@ -78,10 +78,11 @@ vna = VersionNumberingAnalyzer.new
 #puts vna.getIncrementMetrics.cycleLengths[vna.versionCompoundMethods[:firstVersionCompound]]
 #puts vna.getIncrementMetrics.cycleLengths[vna.versionCompoundMethods[:secondVersionCompound]]
 
-Dir.glob('../data/COPEWeb_release_history.txt').select {|f| !File.directory? f}.each { |file|
+Dir.glob('../data/*_release_history.txt').select {|f| !File.directory? f}.each { |file|
   vna.releaseHistory = Utils.readFileToArray('../data/' + file)
   puts "===#{file}==="
-  puts vna.fullVersion
+#  puts "===GIT==="
+  # puts vna.fullVersion
   puts "increments =>" 
   vna.versionCompoundMethods.map{ |key, value|
     if [:firstVersionCompound, :secondVersionCompound, :thirdVersionCompound, :fourthVersionCompound, :suffixNumber].include? key
@@ -108,6 +109,7 @@ Dir.glob('../data/COPEWeb_release_history.txt').select {|f| !File.directory? f}.
       puts "\t" + key.to_s + " => " + vna.getIncrementMetrics.emptyJumps(value).to_s
     end
   }
+  
 #  puts "cycleLengths =>" 
 #  vna.versionCompoundMethods.map{ |key, value|
 #    if [:firstVersionCompound, :secondVersionCompound, :thirdVersionCompound, :fourthVersionCompound, :suffixNumber].include? key
@@ -115,12 +117,12 @@ Dir.glob('../data/COPEWeb_release_history.txt').select {|f| !File.directory? f}.
 #    end
 #  }
   puts "**Parsed versions** "
-  puts "\t" + vna.parsedVersions.to_s
+#  puts "\t" + vna.parsedVersions.to_s
   puts ""
   
   puts "**Number of unique values** "
   vna.versionCompoundMethods.each { |key,value| 
-    puts "\t" + key.to_s + " => " + vna.numberOfUniqueValues[value].to_s
+#    puts "\t" + key.to_s + " => " + vna.numberOfUniqueValues[value].to_s
   }
   puts ""
   
@@ -139,4 +141,18 @@ Dir.glob('../data/COPEWeb_release_history.txt').select {|f| !File.directory? f}.
     puts "\t" + key.to_s + " => " + vna.distributionOfUniqueValues[value].to_s
   }
   puts ""
+  puts "**Megalomania severities**"
+  puts "  all => " + vna.getMegalomaniaSeverities.to_s
+  puts "  count => " + vna.getMegalomaniaSeverities.length.to_s
+  puts "  sum => " + vna.getMegalomaniaSeverities.inject{|sum,x| sum + x }.to_s
+  puts "  uniq_count => " + vna.getMegalomaniaSeverities.inject(Hash.new(0)) { |hash,element|
+    hash[element] +=1
+    hash
+  }.to_s
+  puts "  cycle_lengths" 
+    puts "\tseverity 4 =>" + vna.getMegalomaniaSeverities.chunk { |x| x >= 4 }.reject{|sep,ans| sep}.map{|sep,ans| ans}.map{|arr| arr.length}.to_s
+    puts "\tseverity 3 =>" + vna.getMegalomaniaSeverities.chunk { |x| x >= 3 }.reject{|sep,ans| sep}.map{|sep,ans| ans}.map{|arr| arr.length}.to_s
+    puts "\tseverity 2 =>" + vna.getMegalomaniaSeverities.chunk { |x| x >= 2 }.reject{|sep,ans| sep}.map{|sep,ans| ans}.map{|arr| arr.length}.to_s
+  puts ""
+
 }
