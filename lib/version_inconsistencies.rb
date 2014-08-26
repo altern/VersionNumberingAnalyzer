@@ -11,6 +11,7 @@ class VersionInconsistencies
     @jumps = Array.new(@vna.versionCompoundMethods.length, 0)
     @cycleLengths = Array.new(@vna.versionCompoundMethods.length, [])
     @megalomaniaSeverities = []
+    @megalomaniaSeverityPairs = []
     @emptyJumps = Array.new(@vna.versionCompoundMethods.length, 0)
     @versionPlaceholders = Array.new(@vna.versionCompoundMethods.length, 0)
   end
@@ -49,6 +50,10 @@ class VersionInconsistencies
   
   def addMegalomaniaSeverity(severity)
     @megalomaniaSeverities << severity
+  end
+  
+  def addMegalomaniaSeverityPair(version1, version2)
+    @megalomaniaSeverityPairs << [version1, version2]
   end
   
   def incrementVersionPlaceholder(compoundId)
@@ -105,6 +110,10 @@ class VersionInconsistencies
 
   def megalomaniaSeverities
     @megalomaniaSeverities
+  end
+
+  def megalomaniaSeverityPairs
+    @megalomaniaSeverityPairs
   end
   
   def emptyJumps(*args)

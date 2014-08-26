@@ -163,4 +163,12 @@ class VersionInconsistenciesTest < Test::Unit::TestCase
     assert_equal [2, 3], @vi.megalomaniaSeverities
   end
   
+  def test_add_megalomania_severity_pairs
+    assert_equal [], @vi.megalomaniaSeverityPairs
+    @vi.addMegalomaniaSeverityPair("1.0.1", "2.0.0")
+    assert_equal [ ["1.0.1", "2.0.0"] ], @vi.megalomaniaSeverityPairs
+    @vi.addMegalomaniaSeverityPair("2.1.0", "3.0.0")
+    assert_equal [ ["1.0.1", "2.0.0"], ["2.1.0", "3.0.0"] ], @vi.megalomaniaSeverityPairs
+  end
+  
 end
