@@ -22,6 +22,10 @@ class VersionNumber
     end
   end
   
+  def to_s
+    firstVersionCompound.to_s + " " + secondVersionCompound.to_s + " " + thirdVersionCompound.to_s + " " + fourthVersionCompound.to_s
+  end
+  
   @@versionCompoundMethods = {
     :fullVersion => 0,
     :prefix => 1,
@@ -39,6 +43,7 @@ class VersionNumber
     :suffixLabelWithNumber => 13,
     :suffixLabel => 14,
     :suffixNumber => 15,
+    :postSuffix => 16,
   }
   
   def_each @@versionCompoundMethods.keys do |method_name|
