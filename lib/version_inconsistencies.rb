@@ -2,19 +2,18 @@ require 'version_numbering_analyzer'
 require 'utils'
 
 class VersionInconsistencies
-  attr_accessor :increments, :cycles, :jumps, :cycleLengths, :emptyJumps, :versionPlaceholders
+  attr_accessor :increments, :cycles, :cycleLengths, :emptyJumps, :versionPlaceholders
   
   def initialize
-    @vna = VersionNumberingAnalyzer.new
-    @increments = Array.new(@vna.versionCompoundMethods.length, 0)
-#    @cycles = Array.new(@vna.versionCompoundMethods.length, 0)
-    @jumps = Array.new(@vna.versionCompoundMethods.length, 0)
-    @jumpPairs = Array.new(@vna.versionCompoundMethods.length, [])
-    @cycleLengths = Array.new(@vna.versionCompoundMethods.length, [])
+    @increments = Array.new(VersionNumber.versionCompoundMethods.length, 0)
+#    @cycles = Array.new(VersionNumber.versionCompoundMethods.length, 0)
+    @jumps = Array.new(VersionNumber.versionCompoundMethods.length, 0)
+    @jumpPairs = Array.new(VersionNumber.versionCompoundMethods.length, [])
+    @cycleLengths = Array.new(VersionNumber.versionCompoundMethods.length, [])
     @megalomaniaSeverities = []
     @megalomaniaSeverityPairs = []
-    @emptyJumps = Array.new(@vna.versionCompoundMethods.length, 0)
-    @versionPlaceholders = Array.new(@vna.versionCompoundMethods.length, 0)
+    @emptyJumps = Array.new(VersionNumber.versionCompoundMethods.length, 0)
+    @versionPlaceholders = Array.new(VersionNumber.versionCompoundMethods.length, 0)
   end
   
   def incrementVersionCompound(compoundId)
@@ -99,15 +98,7 @@ class VersionInconsistencies
 #    end
 #  end
   
-  def jumps(*args) 
-    if args.length == 1
-      compoundId = args[0]
-      @jumpPairs[compoundId].length unless @jumpPairs[compoundId].nil?
-    else 
-      @jumpPairs.map{ |elem| elem.length }
-    end
-  end
-  
+
   def jumps(*args) 
     if args.length == 1
       compoundId = args[0]
