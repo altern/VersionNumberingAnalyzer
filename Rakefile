@@ -45,3 +45,8 @@ Rake::TestTask.new do |t|
   t.test_files = FileList['test/**/*.rb']
 end
 
+task :exec do 
+  'main.rb'
+end
+
+task :default => ['exec']
