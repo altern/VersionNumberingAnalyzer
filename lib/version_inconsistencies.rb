@@ -9,6 +9,7 @@ class VersionInconsistencies
     @increments = Array.new(@vna.versionCompoundMethods.length, 0)
 #    @cycles = Array.new(@vna.versionCompoundMethods.length, 0)
     @jumps = Array.new(@vna.versionCompoundMethods.length, 0)
+    @jumpPairs = Array.new(@vna.versionCompoundMethods.length, [])
     @cycleLengths = Array.new(@vna.versionCompoundMethods.length, [])
     @megalomaniaSeverities = []
     @megalomaniaSeverityPairs = []
@@ -37,6 +38,14 @@ class VersionInconsistencies
       @jumps[compoundId] += 1
     else
       @jumps[compoundId] = 1
+    end
+  end
+  
+  def addJumpPair(compoundId, version1, version2)
+    if !@jumpPairs[compoundId].nil?
+      @jumpPairs[compoundId] << [version1, version2]
+    else
+      @jumpPairs[compoundId] = [version1, version2]
     end
   end
   
@@ -93,9 +102,27 @@ class VersionInconsistencies
   def jumps(*args) 
     if args.length == 1
       compoundId = args[0]
+      @jumpPairs[compoundId].length unless @jumpPairs[compoundId].nil?
+    else 
+      @jumpPairs.map{ |elem| elem.length }
+    end
+  end
+  
+  def jumps(*args) 
+    if args.length == 1
+      compoundId = args[0]
       @jumps[compoundId] unless @jumps[compoundId].nil?
     else 
       @jumps
+    end
+  end
+  
+  def jumpPairs(*args) 
+    if args.length == 1
+      compoundId = args[0]
+      @jumpPairs[compoundId] unless @jumpPairs[compoundId].nil?
+    else 
+      @jumpPairs
     end
   end
 

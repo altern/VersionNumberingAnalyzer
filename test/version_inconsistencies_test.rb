@@ -151,6 +151,10 @@ class VersionInconsistenciesTest < Test::Unit::TestCase
     assert_equal(2, severity)
     severity = @vi.versionMegalomaniaSeverity(VersionNumber.new("1.3.4.6"), VersionNumber.new("2.0.0"))
     assert_equal(3, severity)
+    version1 = VersionNumber.new("3.0.0beta1m3")
+    version2 = VersionNumber.new("3.0.0pr2")
+    severity = @vi.versionMegalomaniaSeverity(version1, version2)
+    assert_equal(0, severity, version1.to_s + ", " + version2.to_s)
     severity = @vi.versionMegalomaniaSeverity(VersionNumber.new("1.3.4.6-rc4"), VersionNumber.new("2.0.0.0-rc0"))
     assert_equal(4, severity)
   end
