@@ -79,6 +79,17 @@ class VersionNumberingRegexpTest < Test::Unit::TestCase
     assert_equal("x32", @vna.suffixLabelWithNumber)
   end
   
+  def test_complex_suffix
+    @vna.version = '3.0.0beta1m3'
+    assert_equal("3.0.0beta1m3", @vna.fullVersion)
+    assert_equal("3", @vna.firstVersionCompound)
+    assert_equal("0", @vna.secondVersionCompound)
+    assert_equal("0", @vna.thirdVersionCompound)
+    assert_nil(@vna.fourthVersionCompound)
+    assert_equal("1", @vna.suffixNumber)
+    assert_equal("m3", @vna.postSuffix)
+  end
+  
   def test_four_version_compounds
     @vna.version = '5.6.32.78'
     assert_equal("5.6.32.78", @vna.fullVersion)

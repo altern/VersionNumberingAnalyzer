@@ -21,7 +21,7 @@ class VersionNumberingAnalyzer
   attr_accessor :project, :version, :releaseHistory, :releaseHistories, :versionPattern
   
   def initialize(project = nil)
-    @versionPattern = /^(\D*)?(\d+)([\._\s]([\dx]+))?([\._]([\dx]+))?([\._]([\dx]+))?([\._]([\dx]+))?(([-_\.\s]?(([a-zA-Z]*)[-_\s]?(\d*)))?(\D*)?)?$/
+    @versionPattern = /^(\D*)?(\d+)([\._\s]([\dx]+))?([\._]([\dx]+))?([\._]([\dx]+))?([\._]([\dx]+))?(([-_\.\s]?(([a-zA-Z]*)[-_\s]?(\d*)))?(.*)?)?$/
     @releaseHistories = ReleaseHistories.new.releaseHistories
     @project = project
   end
@@ -43,6 +43,7 @@ class VersionNumberingAnalyzer
     :suffixLabelWithNumber => 13,
     :suffixLabel => 14,
     :suffixNumber => 15,
+    :postSuffix => 16,
   }
   
   def versionCompoundMethods 
@@ -72,10 +73,12 @@ class VersionNumberingAnalyzer
       compound.each_with_index { |value, i|
         if i != 0
           curr = try_to_i(compound[i])
+#          version2 = getCompounds(i).fullVersion
           if curr == 'x'
             vi.incrementVersionPlaceholder
           end
           prev = try_to_i(compound[i-1])
+#          version1 = getCompounds(i-1).fullVersion
           if curr.nil? ^ prev.nil?
             vi.incrementEmptyJump(compoundId)
           elsif !curr.nil? && !prev.nil?
@@ -83,6 +86,7 @@ class VersionNumberingAnalyzer
               vi.incrementVersionCompound(compoundId)
             elsif (curr - prev >= 2 )
               vi.incrementJump(compoundId)
+#              vi.addJumpPair(compoundId, version1, version2)
             elsif curr < prev 
               if curr > 0
                 vi.incrementJump(compoundId)
@@ -92,21 +96,22 @@ class VersionNumberingAnalyzer
         end
       }
     }
-    vi
-  end
-  
-  def getMegalomaniaSeverities
-    vi = VersionInconsistencies.new
     if !@project.nil?
       releaseHistory = @releaseHistories[@project]
       releaseHistory.each_with_index { |value,i| 
         if i != 0 
           version1 = releaseHistory[i-1]
           version2 = releaseHistory[i]
+          
           severity = vi.versionMegalomaniaSeverity(version1, version2)
           if (severity != 0)
             vi.addMegalomaniaSeverity(severity)
+            vi.addMegalomaniaSeverityPair(version1, version2)
           end
+          
+#          parsedVersion1 = Version.new(version1)
+#          parsedVersion2 = Version.new(version2)
+#          
         end
       }
     elsif !@releaseHistory.nil? 
@@ -117,11 +122,20 @@ class VersionNumberingAnalyzer
           severity = vi.versionMegalomaniaSeverity(VersionNumber.new(version1), VersionNumber.new(version2))
           if (severity != 0)
             vi.addMegalomaniaSeverity(severity)
+            vi.addMegalomaniaSeverityPair(version1, version2)
           end
         end
       }
     end
-    vi.megalomaniaSeverities
+    vi
+  end
+  
+  def getMegalomaniaSeverities
+    getIncrementMetrics.megalomaniaSeverities
+  end
+  
+  def getMegalomaniaSeverityPairs
+    getIncrementMetrics.megalomaniaSeverityPairs
   end
   
   def version(version = nil) 
