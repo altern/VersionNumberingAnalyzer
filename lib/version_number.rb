@@ -23,7 +23,7 @@ class VersionNumber
   end
   
   def to_s
-    firstVersionCompound.to_s + " " + secondVersionCompound.to_s + " " + thirdVersionCompound.to_s + " " + fourthVersionCompound.to_s
+    firstVersionCompound.to_s + " " + secondVersionCompound.to_s + " " + thirdVersionCompound.to_s + " " + fourthVersionCompound.to_s + " " + suffixNumber.to_s
   end
   
   @@versionCompoundMethods = {
