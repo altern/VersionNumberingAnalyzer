@@ -79,14 +79,14 @@ vna.releaseHistory = Utils.readFileToArray('../test/git_release_history.txt')
 #puts vna.getIncrementMetrics.cycleLengths[vna.versionCompoundMethods[:secondVersionCompound]]
 
 Dir.glob('../data/*_release_history.txt').select {|f| !File.directory? f}.each { |file|
-  vna.releaseHistory = Utils.readFileToArray('../data/' + file)
+  vna = VersionNumberingAnalyzer.new(Utils.readFileToArray('../data/' + file))
   puts "===#{file}==="
 #  puts "===GIT==="
   # puts vna.fullVersion
   puts "increments =>" 
-  vna.versionCompoundMethods.map{ |key, value|
+  VersionNumber.versionCompoundMethods.map{ |key, value|
     if [:firstVersionCompound, :secondVersionCompound, :thirdVersionCompound, :fourthVersionCompound, :suffixNumber].include? key
-      puts "\t" + key.to_s + " => " + vna.getIncrementMetrics.increments(value).to_s
+      puts "\t" + key.to_s + " => " + vna.versionInconsistencies.increments[value].to_s
     end
   }
   
@@ -98,15 +98,23 @@ Dir.glob('../data/*_release_history.txt').select {|f| !File.directory? f}.each {
 #  }
   
   puts "jumps =>" 
-  vna.versionCompoundMethods.map{ |key, value|
+  VersionNumber.versionCompoundMethods.map{ |key, value|
     if [:firstVersionCompound, :secondVersionCompound, :thirdVersionCompound, :fourthVersionCompound, :suffixNumber].include? key
-      puts "\t" + key.to_s + " => " + vna.getIncrementMetrics.jumps(value).to_s
+      puts "\t" + key.to_s + " => " + vna.versionInconsistencies.jumps[value].to_s
     end
   }
+  
   puts "emptyJumps =>" 
-  vna.versionCompoundMethods.map{ |key, value|
+  VersionNumber.versionCompoundMethods.map{ |key, value|
     if [:firstVersionCompound, :secondVersionCompound, :thirdVersionCompound, :fourthVersionCompound, :suffixNumber].include? key
-      puts "\t" + key.to_s + " => " + vna.getIncrementMetrics.emptyJumps(value).to_s
+      puts "\t" + key.to_s + " => " + vna.versionInconsistencies.emptyJumps[value].to_s
+    end
+  }
+  
+  puts "versionPlaceholders =>" 
+  VersionNumber.versionCompoundMethods.map{ |key, value|
+    if [:firstVersionCompound, :secondVersionCompound, :thirdVersionCompound, :fourthVersionCompound, :suffixNumber].include? key
+      puts "\t" + key.to_s + " => " + vna.versionInconsistencies.versionPlaceholders[value].to_s
     end
   }
   
@@ -116,33 +124,38 @@ Dir.glob('../data/*_release_history.txt').select {|f| !File.directory? f}.each {
 #      puts "\t" + key.to_s + " => " + vna.getIncrementMetrics.cycleLengths(value).to_s
 #    end
 #  }
-  puts "**Parsed versions** "
-#  puts "\t" + vna.parsedVersions.to_s
-  puts ""
+#  puts "**Parsed versions** "
+##  puts "\t" + vna.parsedVersions.to_s
+#  puts ""
   
-  puts "**Number of unique values** "
-  vna.versionCompoundMethods.each { |key,value| 
+#  puts "**Number of unique values** "
+#  vna.versionCompoundMethods.each { |key,value| 
 #    puts "\t" + key.to_s + " => " + vna.numberOfUniqueValues[value].to_s
-  }
-  puts ""
+#  }
+#  puts ""
   
-  puts "**Unique values**"
-  vna.versionCompoundMethods.each { |key,value| 
-    puts "\t" + key.to_s + " => " + vna.uniqueValues[value].to_s
-  }
-  puts ""
-  puts "**Number of empty values**"
-  vna.versionCompoundMethods.each { |key,value| 
-    puts "\t" + key.to_s + " => " + vna.numberOfEmptyValues[value].to_s
-  }
-  puts ""
-  puts "**Distribution of unique values**"
-  vna.versionCompoundMethods.each { |key,value| 
-    puts "\t" + key.to_s + " => " + vna.distributionOfUniqueValues[value].to_s
-  }
+#  puts "**Unique values**"
+#  vna.versionCompoundMethods.each { |key,value| 
+#    puts "\t" + key.to_s + " => " + vna.uniqueValues[value].to_s
+#  }
+#  puts ""
+#  puts "**Number of empty values**"
+#  vna.versionCompoundMethods.each { |key,value| 
+#    puts "\t" + key.to_s + " => " + vna.numberOfEmptyValues[value].to_s
+#  }
+#  puts ""
+#  puts "**Distribution of unique values**"
+#  vna.versionCompoundMethods.each { |key,value| 
+#    puts "\t" + key.to_s + " => " + vna.distributionOfUniqueValues[value].to_s
+#  }
   puts ""
   puts "**Megalomania severities**"
-  puts "  all => " + vna.getMegalomaniaSeverities.to_s
+#  puts "  all => " + vna.getMegalomaniaSeverities.to_s
+#  puts "  pairs => " + vna.getMegalomaniaSeverityPairs.to_s
+severities = vna.getMegalomaniaSeverities
+puts "  pair -> severity => " + vna.getMegalomaniaSeverityPairs.each_with_index.map { |pair,i| 
+    "\t" + pair.join("\t -> \t") + "\t ==> \t" + severities[i].to_s
+}.join("\n")
   puts "  count => " + vna.getMegalomaniaSeverities.length.to_s
   puts "  sum => " + vna.getMegalomaniaSeverities.inject{|sum,x| sum + x }.to_s
   puts "  uniq_count => " + vna.getMegalomaniaSeverities.inject(Hash.new(0)) { |hash,element|
