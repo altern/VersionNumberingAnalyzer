@@ -1,2 +1,0 @@
-jfreechart-1.0.7/
-jfreechart-1.0.8/

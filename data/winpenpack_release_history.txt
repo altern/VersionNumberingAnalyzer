@@ -1,2 +1,0 @@
-wpp-menu/
-x-launcher/
