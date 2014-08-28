@@ -29,6 +29,7 @@ class VersionNumberingAnalyzer
           strVersion2 = @releaseHistory[i]
           version1 = VersionNumber.new(strVersion1)
           version2 = VersionNumber.new(strVersion2)
+          severity = @versionInconsistencies.versionMegalomaniaSeverity(VersionNumber.new(strVersion1), VersionNumber.new(strVersion2))
           
           VersionNumber.numericCompounds.each { |key, value|
             if key.class == Symbol
@@ -47,21 +48,14 @@ class VersionNumberingAnalyzer
             elsif compound2.class == Fixnum && compound1.class == Fixnum
               if (compound2 - compound1 == 1) then
                 @versionInconsistencies.incrementVersionCompound(compoundId)
-              elsif ( compound2 - compound1 >= 2 ) && (!compound1.nil? && !compound2.nil?)
+              elsif ( compound2 - compound1 >= 2 ) && (!compound1.nil? && !compound2.nil?) || (compound2 < compound1 && compound2 > 0)
                 @versionInconsistencies.incrementJump(compoundId)
+                @versionInconsistencies.addJumpLength(compoundId, compound2 - compound1)
                 @versionInconsistencies.addJumpPair(compoundId, strVersion1, strVersion2)
-                if compoundId == 2 
-                  puts "adding jump pair (#{compoundId}): #{strVersion1}, #{strVersion2}"
-                end 
-              elsif compound2 < compound1 
-                if compound2 > 0
-                  @versionInconsistencies.incrementJump(compoundId)
-                end
               end
             end
           }
           
-          severity = @versionInconsistencies.versionMegalomaniaSeverity(version1, version2)
           if (severity != 0)
             @versionInconsistencies.addMegalomaniaSeverity(severity)
             @versionInconsistencies.addMegalomaniaSeverityPair(strVersion1, strVersion2)
@@ -98,6 +92,9 @@ class VersionNumberingAnalyzer
     }.reduce Hash.new, :merge },
   }
   
+  def getVersions
+    @releaseHistory
+  end
   
   def getMegalomaniaSeverities
     @versionInconsistencies.megalomaniaSeverities
@@ -105,6 +102,29 @@ class VersionNumberingAnalyzer
   
   def getMegalomaniaSeverityPairs
     @versionInconsistencies.megalomaniaSeverityPairs
+  end
+  
+  def getCycleLengths(compoundId)
+    indexCount = 1
+    cycleLengths = []
+    @releaseHistory.each_with_index{|strVersion, i|
+      if i != 0
+        strVersion1 = @releaseHistory[i-1]
+        strVersion2 = @releaseHistory[i]
+        version1 = VersionNumber.new(strVersion1)
+        version2 = VersionNumber.new(strVersion2)
+        compound1 = version1.getCompoundById(compoundId) 
+        compound2 = version2.getCompoundById(compoundId) 
+        severity = @versionInconsistencies.versionMegalomaniaSeverity(version1, version2)
+        if compound1 != compound2 || compound2.nil? || severity != 0
+          cycleLengths << indexCount
+          indexCount = 0
+        end
+        indexCount += 1
+      end
+    }
+    cycleLengths << indexCount
+    cycleLengths
   end
   
   def_each @@stats.keys do |method_name|
