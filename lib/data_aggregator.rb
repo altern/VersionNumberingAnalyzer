@@ -11,32 +11,29 @@ class CSVAggregator
 
   def initialize
     
-    @resultFilename = '../data/results.csv'
+    @headerColumns = {
+      :projectName => 'Project name',
+      :sourceType => 'Source type',
+      :language => 'Language',
+      :SDK => 'Development toolset',
+      :teamSize => 'Team size',
+      :age => 'Age',
+      :source => 'Source',
+      :appType => 'Application type',
+      :appSize => 'Application size',
+      :OS => 'Operating system'
+    }
     
-    @projectInfo = [
-      {:projectName => 'FileZilla3', :sourceType => 'OSS', :language => 'C', :SDK => 'None', :teamSize => 0, :age => 0, :source => 'git', :appType => 'DevTool', :appSize => 0},
-      {:projectName => 'ant', :sourceType => 'OSS', :language => 'Java', :SDK => 'Java', :teamSize => 0, :age => 0, :source => 'git', :appType => 'DevTool', :appSize => 0 },
-      {:projectName => 'd3', :sourceType => 'OSS', :language => 'JavaScript', :SDK => 'Web', :teamSize => 0, :age => 0, :source => 'git', :appType => 'Library', :appSize => 0 },          
-      {:projectName => 'git', :sourceType => 'OSS', :language => 'C', :SDK => 'VCS', :teamSize => 0, :age => 0, :source => 'git', :appType => 'DevTool', :appSize => 0 },         
-      {:projectName => 'gradle', :sourceType => 'OSS', :language => 'Java', :SDK => 'Groovy', :teamSize => 0, :age => 0, :source => 'git', :appType => 'DevTool', :appSize => 0  },      
-      {:projectName => 'groovy-core', :sourceType => 'OSS', :language => 'Java', :SDK => 'Groovy' , :teamSize => 0, :age => 0, :source => 'git', :appType => 'Language', :appSize => 0  }, 
-      {:projectName => 'jenkins', :sourceType => 'OSS', :language => 'Java', :SDK => 'None', :teamSize => 0, :age => 0, :source => 'git', :appType => 'DevTool', :appSize => 0  },     
-      {:projectName => 'jquery-ui', :sourceType => 'OSS', :language => 'JavaScript', :SDK => 'JavaScript', :teamSize => 0, :age => 0, :source => 'git', :appType => 'Library', :appSize => 0  },   
-      {:projectName => 'jquery', :sourceType => 'OSS', :language => 'JavaScript', :SDK => 'JavaScript', :teamSize => 0, :age => 0, :source => 'git', :appType => 'Library', :appSize => 0  },      
-      {:projectName => 'linux', :sourceType => 'OSS', :language => 'C', :SDK => 'UNIX', :teamSize => 0, :age => 0, :source => 'git', :appType => 'OS', :appSize => 0  },       
-      {:projectName => 'maven', :sourceType => 'OSS', :language => 'Java', :SDK => 'Java', :teamSize => 0, :age => 0, :source => 'git', :appType => 'DevTool', :appSize => 0  },       
-      {:projectName => 'php-src', :sourceType => 'OSS', :language => 'C', :SDK => 'PHP', :teamSize => 0, :age => 0, :source => 'git', :appType => 'Language', :appSize => 0  },
-      {:projectName => 'python', :sourceType => 'OSS', :language => 'C', :SDK => 'Python', :teamSize => 0, :age => 0, :source => 'git', :appType => 'Language', :appSize => 0  },
-      {:projectName => 'r-lang', :sourceType => 'OSS', :language => 'C', :SDK => 'R', :teamSize => 0, :age => 0, :source => 'git', :appType => 'Language', :appSize => 0  },
-      {:projectName => 'rails', :sourceType => 'OSS', :language => 'Ruby', :SDK => 'Ruby', :teamSize => 0, :age => 0, :source => 'git', :appType => 'Framework', :appSize => 0  },
-      {:projectName => 'rhel', :sourceType => 'OSS', :language => 'C', :SDK => 'UNIX', :teamSize => 0, :age => 0, :source => 'git', :appType => 'OS', :appSize => 0  },
-      {:projectName => 'ruby', :sourceType => 'OSS', :language => 'C', :SDK => 'Ruby', :teamSize => 0, :age => 0, :source => 'git', :appType => 'Language', :appSize => 0  },
-      {:projectName => 'svn', :sourceType => 'OSS', :language => 'C', :SDK => 'VCS', :teamSize => 0, :age => 0, :source => 'ReleaseNotes', :appType => 'DevTool', :appSize => 0  },
-      {:projectName => 'symfony', :sourceType => 'OSS', :language => 'PHP', :SDK => 'PHP', :teamSize => 0, :age => 0, :source => 'git', :appType => 'Framework', :appSize => 0  },
-      {:projectName => 'yui2', :sourceType => 'OSS', :language => 'JavaScript', :SDK => 'JavaScript', :teamSize => 0, :age => 0, :source => 'git', :appType => 'Library', :appSize => 0  },
-      {:projectName => 'yui3', :sourceType => 'OSS', :language => 'JavaScript', :SDK => 'JavaScript', :teamSize => 0, :age => 0, :source => 'git', :appType => 'Library', :appSize => 0  },
-    ]
-
+    @resultFilename = '../data/projects_metainfo.csv'
+    
+    @projectInfo = []
+    
+    CSV.foreach(File.path(@resultFilename)) do |col|
+      @projectInfo << @headerColumns.keys.each_with_index.map { |key,i| 
+        { key.to_sym => col[i] }
+      }.inject(:merge)
+    end
+    
     @metrics = {
       :firstVersionCompound => {
         :increments => Proc.new{ |vna| vna.versionInconsistencies.increments[VersionNumber.versionCompoundMethods[:firstVersionCompound]] },
