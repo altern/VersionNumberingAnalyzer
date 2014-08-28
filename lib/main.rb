@@ -143,11 +143,11 @@ Dir.glob('../data/*_release_history.txt').select {|f| !File.directory? f}.each {
 #  vna.versionCompoundMethods.each { |key,value| 
 #    puts "\t" + key.to_s + " => " + vna.numberOfEmptyValues[value].to_s
 #  }
-#  puts ""
-#  puts "**Distribution of unique values**"
-#  vna.versionCompoundMethods.each { |key,value| 
-#    puts "\t" + key.to_s + " => " + vna.distributionOfUniqueValues[value].to_s
-#  }
+  puts ""
+  puts "**Distribution of unique values**"
+  vna.versionCompoundMethods.each { |key,value| 
+    puts "\t" + key.to_s + " => " + vna.distributionOfUniqueValues[value].to_s
+  }
   puts ""
   puts "**Megalomania severities**"
 #  puts "  all => " + vna.getMegalomaniaSeverities.to_s
@@ -158,6 +158,10 @@ puts "  pair -> severity => " + vna.getMegalomaniaSeverityPairs.each_with_index.
 }.join("\n")
   puts "  count => " + vna.getMegalomaniaSeverities.length.to_s
   puts "  sum => " + vna.getMegalomaniaSeverities.inject{|sum,x| sum + x }.to_s
+  aggregatedSeverityMetricMapping = {1 => 2, 2 => 4, 3 => 7, 4 => 9}
+  puts "  aggregated => " + vna.getMegalomaniaSeverities.inject{|sum,x| 
+    sum + aggregatedSeverityMetricMapping[x]
+  }.to_s
   puts "  uniq_count => " + vna.getMegalomaniaSeverities.inject(Hash.new(0)) { |hash,element|
     hash[element] +=1
     hash
