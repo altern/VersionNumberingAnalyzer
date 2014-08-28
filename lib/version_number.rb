@@ -5,7 +5,7 @@ class VersionNumber
   attr_accessor :versionNumber
   
   def initialize(version)
-    @versionPattern = /^(\D+[\._\-\s]?)?(\d+)([\._\-\s]([\dx]+))?([\._]([\dx]+))?([\._]([\dx]+))?([\._]([\dx]+))?(([-_\.\s]?(([a-zA-Z]*)[-_\s]?(\d*)))?(.*)?)?$/
+    @versionPattern = /^(\D+\d*?[_\-\s]?)?(\d+)([\._\s]([\dx]+))?([\._]([\dx]+))?([\._]([\dx]+))?([\._]([\dx]+))?(([-_\.\s]?(([a-zA-Z]*)[-_\s]?(\d*)))?(.*)?)?$/
     @versionNumber = Array.new(@@versionCompoundMethods.length, nil)
     matches = @versionPattern.match(version)
     if !matches.nil? then
@@ -21,8 +21,13 @@ class VersionNumber
     end
   end
   
-  def nil?(compoundId)
-    getCompoundById(compoundId).nil?
+  def nil?(*args)
+    if args.length == 1
+      compoundId = args[0]
+      getCompoundById(compoundId).nil?
+    else
+      @versionNumber.nil?
+    end
   end
 
   def zero?(compoundId)
@@ -91,6 +96,21 @@ class VersionNumber
         @versionNumber[compoundId]
       end
     end
+  end
+  
+  def decrement
+    @@numericalCompounds.reverse.each{|compoundId|
+      compound = @versionNumber[@@versionCompoundMethods[compoundId]]
+      if compound.class == String
+        compoundNum = try_to_i compound 
+      else
+        compoundNum = compound 
+      end
+      if !compoundNum.nil? && compoundNum != 0
+        @versionNumber[@@versionCompoundMethods[compoundId]] = compoundNum - 1 
+        break
+      end
+    }
   end
   
 end
