@@ -8,6 +8,7 @@ class VersionInconsistencies
     @increments = Array.new(VersionNumber.versionCompoundMethods.length, 0)
 #    @cycles = Array.new(VersionNumber.versionCompoundMethods.length, 0)
     @jumps = Array.new(VersionNumber.versionCompoundMethods.length, 0)
+    @jumpLengths = Array.new(VersionNumber.versionCompoundMethods.length, [])
     @jumpPairs = Array.new(VersionNumber.versionCompoundMethods.length, [])
     @cycleLengths = Array.new(VersionNumber.versionCompoundMethods.length, [])
     @megalomaniaSeverities = []
@@ -45,6 +46,14 @@ class VersionInconsistencies
       @jumpPairs[compoundId] << [version1, version2]
     else
       @jumpPairs[compoundId] = [version1, version2]
+    end
+  end
+  
+  def addJumpLength(compoundId, length)
+    if !@jumpLengths[compoundId].empty?
+      @jumpLengths[compoundId] << length
+    else
+      @jumpLengths[compoundId] = [length]
     end
   end
   
@@ -116,6 +125,15 @@ class VersionInconsistencies
       @jumpPairs
     end
   end
+  
+  def jumpLengths(*args) 
+    if args.length == 1
+      compoundId = args[0]
+      @jumpLengths[compoundId] unless @jumpLengths[compoundId].nil?
+    else 
+      @jumpLengths
+    end
+  end
 
   def cycleLengths(*args)
     if args.length == 1
@@ -153,12 +171,18 @@ class VersionInconsistencies
   end
   
   def versionMegalomaniaSeverity(firstVersion, secondVersion)
-    severity = 0
-    severity += 1 unless firstVersion.zeroOrNil?(:firstVersionCompound) || !secondVersion.zeroOrNil?(:firstVersionCompound)
-    severity += 1 unless firstVersion.zeroOrNil?(:secondVersionCompound) || !secondVersion.zeroOrNil?(:secondVersionCompound)
-    severity += 1 unless firstVersion.zeroOrNil?(:thirdVersionCompound) || !secondVersion.zeroOrNil?(:thirdVersionCompound)
-    severity += 1 unless firstVersion.zeroOrNil?(:fourthVersionCompound) || !secondVersion.zeroOrNil?(:fourthVersionCompound)
-    severity += 1 unless firstVersion.zeroOrNil?(:suffixNumber) || !secondVersion.zeroOrNil?(:suffixNumber)
-    severity
+    secondVersionInit = secondVersion
+    secondVersion.decrement
+    if secondVersionInit != secondVersion
+      versionMegalomaniaSeverity(firstVersion, secondVersion)
+    else
+      severity = 0
+      severity += 1 unless firstVersion.zeroOrNil?(:firstVersionCompound) || !secondVersion.zeroOrNil?(:firstVersionCompound) 
+      severity += 1 unless firstVersion.zeroOrNil?(:secondVersionCompound) || !secondVersion.zeroOrNil?(:secondVersionCompound) 
+      severity += 1 unless firstVersion.zeroOrNil?(:thirdVersionCompound) || !secondVersion.zeroOrNil?(:thirdVersionCompound) 
+      severity += 1 unless firstVersion.zeroOrNil?(:fourthVersionCompound) || !secondVersion.zeroOrNil?(:fourthVersionCompound) 
+      severity += 1 unless firstVersion.zeroOrNil?(:suffixNumber) || !secondVersion.zeroOrNil?(:suffixNumber)
+      severity
+    end
   end
 end

@@ -96,6 +96,17 @@ class VersionInconsistenciesTest < Test::Unit::TestCase
     assert_equal(2, @vi.jumps(VersionNumber.versionCompoundMethods[:suffixNumber]))
   end
   
+  def test_add_jump_length
+    @vi.addJumpLength(VersionNumber.versionCompoundMethods[:firstVersionCompound], 2)
+    assert_equal([2], @vi.jumpLengths(VersionNumber.versionCompoundMethods[:firstVersionCompound]))
+    @vi.addJumpLength(VersionNumber.versionCompoundMethods[:firstVersionCompound], 3)
+    assert_equal([2,3], @vi.jumpLengths(VersionNumber.versionCompoundMethods[:firstVersionCompound]))
+    @vi.addJumpLength(VersionNumber.versionCompoundMethods[:secondVersionCompound], -1)
+    assert_equal([-1], @vi.jumpLengths(VersionNumber.versionCompoundMethods[:secondVersionCompound]))
+    @vi.addJumpLength(VersionNumber.versionCompoundMethods[:secondVersionCompound], 4)
+    assert_equal([-1,4], @vi.jumpLengths(VersionNumber.versionCompoundMethods[:secondVersionCompound]))
+  end
+  
   def test_add_cycle_length
     @vi.addCycleLength(VersionNumber.versionCompoundMethods[:firstVersionCompound], 1)
     assert_equal([1], @vi.cycleLengths(VersionNumber.versionCompoundMethods[:firstVersionCompound]))
@@ -157,6 +168,12 @@ class VersionInconsistenciesTest < Test::Unit::TestCase
     assert_equal(0, severity, version1.to_s + ", " + version2.to_s)
     severity = @vi.versionMegalomaniaSeverity(VersionNumber.new("1.3.4.6-rc4"), VersionNumber.new("2.0.0.0-rc0"))
     assert_equal(4, severity)
+    severity = @vi.versionMegalomaniaSeverity(VersionNumber.new("1.0.6"), VersionNumber.new("2.0.1"))
+    assert_equal(1, severity)
+    severity = @vi.versionMegalomaniaSeverity(VersionNumber.new("0.2"), VersionNumber.new("0.3"))
+    assert_equal(0, severity)
+    severity = @vi.versionMegalomaniaSeverity(VersionNumber.new("0.13.2"), VersionNumber.new("0.14.1"))
+    assert_equal(1, severity)
   end
   
   def test_add_megalomania_severities
