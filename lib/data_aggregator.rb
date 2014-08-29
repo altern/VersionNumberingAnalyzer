@@ -19,16 +19,18 @@ class CSVAggregator
       :teamSize => 'Team size',
       :age => 'Age',
       :source => 'Source',
+      :link => 'Link',
       :appType => 'Application type',
       :appSize => 'Application size',
       :OS => 'Operating system'
     }
     
-    @resultFilename = '../data/projects_metainfo.csv'
+    @projectInfoFilename = '../data/projects_metainfo.csv'
+    @resultFilename = '../data/results.csv'
     
     @projectInfo = []
     
-    CSV.foreach(File.path(@resultFilename)) do |col|
+    CSV.foreach(File.path(@projectInfoFilename)) do |col|
       @projectInfo << @headerColumns.keys.each_with_index.map { |key,i| 
         { key.to_sym => col[i] }
       }.inject(:merge)
@@ -139,7 +141,7 @@ class CSVAggregator
   
 def generateCSV
   CSV.open(@resultFilename, 'w') do |csv_object|
-    header = ['Project name', 'Source type', 'Language', 'SDK', 'Team size', 'Age', 'Source', 'Application type', 'Application size']
+    header = @headerColumns.values
     header += ['1st version compound increments', '2nd version compound increments', '3rd version compound increments', 
       '4th version compound increments', 'Suffix number jumps']
     header += ['1st version compound jumps', '2nd version compound jumps', '3rd version compound jumps', 
