@@ -1,10 +1,11 @@
 Project name,Source type,Language,SDK,Team size,Age,Source,Link,Application type,Appliation size,Target platform,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 air,Proprietary,C,--,--,6.3,archive,http://helpx.adobe.com/air/kb/archived-air-sdk-version.html,Multimedia,244,Windows,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,0
 nvidiadriver,Proprietary,C,--,--,3,archive,http://www.nvidia.com/object/linux-amd64-display-archive.html,Firmware,74,Linux,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,0
-clover,Proprietary,Java,--,--,6.9,"archive,documentation,release_notes","https://www.atlassian.com/software/clover/download-archives,https://confluence.atlassian.com/display/ALLDOC/Clover+Documentation+Directory, https://confluence.atlassian.com/display/CLOVER/Clover+Release+Notes",DevTool,59,Eclipse,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,0
+clover,Proprietary,Java,--,--,6.9,"archive,documentation,release_notes","https://www.atlassian.com/software/clover/download-archives,https://confluence.atlassian.com/display/ALLDOC/Clover+Documentation+Directory, https://confluence.atlassian.com/display/CLOVER/Clover+Release+Notes",DevTool,59,Multiplatform,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,0
 clover,Proprietary,Java,--,--,6.9,archive,https://www.atlassian.com/software/clover/download-archives,DevTool,59,Eclipse,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,0
-clover,Proprietary,Java,--,--,6.9,documentation,https://confluence.atlassian.com/display/ALLDOC/Clover+Documentation+Directory,DevTool,59,Eclipse,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,0
-clover,Proprietary,Java,--,--,6.9,release_notes,https://confluence.atlassian.com/display/CLOVER/Clover+Release+Notes,DevTool,59,Eclipse,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,0
+clover,Proprietary,Java,--,--,6.9,archive_eclipse,https://www.atlassian.com/software/clover/download-archives,DevTool,59,Multiplatform,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,0
+clover,Proprietary,Java,--,--,6.9,documentation,https://confluence.atlassian.com/display/ALLDOC/Clover+Documentation+Directory,DevTool,59,Multiplatform,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,0
+clover,Proprietary,Java,--,--,6.9,release_notes,https://confluence.atlassian.com/display/CLOVER/Clover+Release+Notes,DevTool,59,Multiplatform,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,0
 bamboo,Proprietary,Java,--,--,7.6,"archive,documentation,release_notes","https://www.atlassian.com/software/bamboo/download-archives,https://confluence.atlassian.com/display/ALLDOC/Bamboo+Documentation+Directory,https://confluence.atlassian.com/display/BAMBOO/Older+releases",DevTool,166.1,Windows,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,0
 bamboo,Proprietary,Java,--,--,7.6,archive,https://www.atlassian.com/software/bamboo/download-archives,DevTool,166.1,Windows,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,0
 bamboo,Proprietary,Java,--,--,7.6,documentation,https://confluence.atlassian.com/display/ALLDOC/Bamboo+Documentation+Directory,DevTool,166.1,Windows,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,0
@@ -49,7 +50,8 @@ connector,Proprietary,Java,--,--,5.3,documentation_eclipse,"https://marketplace.
 acrobat,Proprietary,C++,--,--,7.9,release_notes,http://helpx.adobe.com/acrobat/release-note/release-notes-acrobat-reader.html,Multimedia,1850,Windows,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,0
 python,OSS,C,Python,119,0,release_notes,https://www.python.org/doc/versions/,Language,20,Multiplatform,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,0
 rhel,OSS,C,UNIX,0,0,release_notes,https://access.redhat.com/articles/3078,OS,,Linux,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,0
-svn,OSS,C,VCS,176,14,"release_notes,svn","https://subversion.apache.org/docs/release-notes/release-history.html,http://svn.apache.org/repos/asf/subversion/",DevTool,0.3,Multiplatform,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,0
+svn,OSS,C,VCS,176,14,release_notes,https://subversion.apache.org/docs/release-notes/release-history.html,DevTool,0.3,Multiplatform,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,0
+svn,OSS,D,VCS,176,14,svn,http://svn.apache.org/repos/asf/subversion/,DevTool,0.3,Multiplatform,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,0
 atunes,OSS,Java,--,4,8,svn,https://svn.code.sf.net/p/atunes/code,DesktopApp,16,Multiplatform,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 cardme,OSS,Java,--,5,5,svn,https://svn.code.sf.net/p/cardme/code,Firmware,0.27,Multiplatform,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 davmail,OSS,Java,--,1,8,svn,https://svn.code.sf.net/p/davmail/code,DesktopApp,4.8,Multiplatform,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
