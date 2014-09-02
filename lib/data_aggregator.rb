@@ -25,8 +25,9 @@ class CSVAggregator
       :OS => 'Operating system'
     }
     
-    @projectInfoFilename = '../data/projects_metainfo.csv'
-    @resultFilename = '../data/results.csv'
+    @dataDir = '../data/'
+    @projectInfoFilename = @dataDir + 'projects_metainfo.csv'
+    @resultFilename = @dataDir + 'results.csv'
     
     @projectInfo = []
     
@@ -143,7 +144,7 @@ def generateCSV
   CSV.open(@resultFilename, 'w') do |csv_object|
     header = @headerColumns.values
     header += ['1st version compound increments', '2nd version compound increments', '3rd version compound increments', 
-      '4th version compound increments', 'Suffix number jumps']
+      '4th version compound increments', 'Suffix number increments']
     header += ['1st version compound jumps', '2nd version compound jumps', '3rd version compound jumps', 
       '4th version compound jumps', 'Suffix number jumps']
     header += ['1st version compound empty jumps', '2nd version compound empty jumps', '3rd version compound empty jumps', 
@@ -155,12 +156,22 @@ def generateCSV
     header += ['Megalomania of 1st degree severity', 'Megalomania of 2nd degree severity', 'Megalomania of 3rd degree severity', 
       'Megalomania of 4th degree severity', 'Aggregated megalomania severity']
     header += ['Aggregated increments', 'Aggregated jumps', 'Aggregated empty jumps', 
-      'Aggregated version placholders', 'Aggregated cycle length']
-    puts header.join(',')
+      'Aggregated version placeholders', 'Aggregated cycle length']
+#    puts header.join(',')
     csv_object << header
-    Dir.glob('../data/*_release_history.txt').select {|f| !File.directory? f}.each { |file|
-      projectName = file.split('_release_history.txt')[0].split('/')[-1]
-#      puts projectName
+    @projectInfo.each_with_index { |project,i|
+      if i == 0 then next end
+      projectName = project[:projectName]
+      source = project[:source]
+      puts "==#{projectName}=="
+      file_name = "#{projectName}_release_history(#{source}).txt"
+      file = @dataDir + file_name
+      if !File.exist?(file) then 
+        puts "  !!!File #{file_name} does not exist!!!"
+        next
+      else
+        puts "Processing file #{file_name}..."
+      end
       projectInfo = @projectInfo.find{|value| value[:projectName] == projectName}
 #      puts projectInfo
       projectReleaseHistory = Utils.readFileToArray('../data/' + file)
@@ -174,6 +185,7 @@ def generateCSV
           projectInfo[:teamSize],
           projectInfo[:age],
           projectInfo[:source],
+          projectInfo[:link],
           projectInfo[:appType],
           projectInfo[:appSize],
 #          projectInfo[:appSize],
@@ -214,7 +226,7 @@ def generateCSV
           @metrics[:aggregated][:averageCycleLength].call(projectVersionNumberingAnalyzer),
           @metrics[:aggregatedInconsistencyScore].call(projectVersionNumberingAnalyzer),
         ]
-        puts projectData.join(',')
+#        puts projectData.join(',')
         csv_object << projectData
       end
     }
