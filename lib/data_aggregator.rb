@@ -183,6 +183,9 @@ def generateCSV
   CSV.open(@resultFilename, 'w') do |csv_object|
     header = @headerColumns.values
     header += [
+      'Number of versions'
+    ]
+    header += [
       '1st vc increments', 
       '2nd vc increments', 
       '3rd vc increments', 
@@ -281,6 +284,7 @@ def generateCSV
           projectInfo[:appType],
           projectInfo[:appSize],
           projectInfo[:OS],
+          projectVersionNumberingAnalyzer.getVersions.length,
 #          projectInfo[:appSize],
           @metrics[:firstVersionCompound][:increments].call(projectVersionNumberingAnalyzer),
           @metrics[:secondVersionCompound][:increments].call(projectVersionNumberingAnalyzer),
