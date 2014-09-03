@@ -279,7 +279,7 @@ def generateCSV
           projectInfo[:SDK], 
           projectInfo[:teamSize],
           projectInfo[:age],
-          projectInfo[:source],
+          source,
           projectInfo[:link],
           projectInfo[:appType],
           projectInfo[:appSize],
