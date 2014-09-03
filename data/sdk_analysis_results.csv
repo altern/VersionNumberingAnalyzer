@@ -1,0 +1,5 @@
+"","Metric names","SDK projects averages","Non-SDK projects averages","p-values"
+"1","4th version compound sum of jumps",182.05,149134.804878049,0.0475846301544921
+"2","4th version compound avg of jumps",2.60071428571429,615.671855288978,0.0475846301544921
+"3","Aggregated jumps",16.75,112.682926829268,0.0210352392577568
+"4","Aggregated inconsistency score",20.9769841269841,118.229292204687,0.0151703325110932

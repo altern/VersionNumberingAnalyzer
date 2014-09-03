@@ -1,0 +1,10 @@
+"","Metric names","OSS projects averages","Proprietary projects averages","p-values"
+"1","3rd version compound number of jumps",3.075,21.952380952381,3.4730972110774e-06
+"2","3rd version compound sum of jumps",15.875,8718.42857142857,4.25652282238901e-06
+"3","3rd version compound avg of jumps",2.07389005602241,244.754750972079,0.000201040291397079
+"4","3rd version compound number of empty jumps",4.675,15.8571428571429,0.0255298416797426
+"5","4th version compound number of jumps",1.75,44.7142857142857,5.67698983237129e-06
+"6","4th version compound sum of jumps",91.025,291167.952380952,4.61232410189586e-06
+"7","4th version compound avg of jumps",1.30035714285714,1202.02600318324,4.61232410189586e-06
+"8","Aggregated jumps",26.55,185.380952380952,2.11814864142428e-06
+"9","Aggregated inconsistency score",31.0643253968254,191.636554621849,3.02171532145807e-06
