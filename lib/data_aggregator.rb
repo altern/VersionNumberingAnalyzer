@@ -158,9 +158,13 @@ class CSVAggregator
           }.sum
         },
         :emptyJumpsNumber => Proc.new{ |vna| 
-          [:firstVersionCompound, :secondVersionCompound, :thirdVersionCompound, :fourthVersionCompound, :suffixNumber].map { |compoundId| 
+          lengthOfFirstVersion = VersionNumber.new(vna.getVersions[0]).numberOfCompounds
+          metric = lengthOfFirstVersion
+          metric += [:firstVersionCompound, :secondVersionCompound, :thirdVersionCompound, :fourthVersionCompound, :suffixNumber].map { |compoundId| 
             @metrics[compoundId][:emptyJumps].call(vna)
-          }.inject(:+).uniq.sum
+          }.inject(:+).uniq.sum 
+          metric.zero? ? 0 : metric - lengthOfFirstVersion
+#          metric
         },
 #        :versionPlaceholders => Proc.new{ |vna| 
 #          aggregatedMetric = 0
