@@ -233,6 +233,9 @@ calculateAggregatedMetrics <- function(d1, d2, name1, name2) {
   analysis_results <- data.frame(metricNames, averages1, averages2, pvalues)
   if(nrow(analysis_results) != 0) {
     names(analysis_results) <- c("Metric names", paste0(name1, " averages"),paste0(name2, " averages"), "p-values")  
+    analysis_results[2] <- round(analysis_results[2], 3)
+    analysis_results[3] <- round(analysis_results[3], 3)
+    analysis_results[4] <- round(analysis_results[4], 3)
   }
   
   return(analysis_results)
@@ -253,7 +256,7 @@ ossProjects <- data[data$Source_type == "OSS", ]
 proprietaryProjects <- data[data$Source_type == "Proprietary", ]
 analysis_results <- calculateAggregatedMetrics(ossProjects, proprietaryProjects, "OSS projects", "Proprietary projects")
 print(analysis_results)
-write.csv(analysis_results, "oss_analysis_results.csv")
+write.csv(analysis_results, "oss_analysis_results.csv", quote=FALSE)
 print("")
 
 print("SVN vs Git ")
@@ -261,7 +264,7 @@ projectsFromSvn <- data[data$Source == "svn", ]
 projectsFromGit <- data[data$Source == "git", ]
 analysis_results <- calculateAggregatedMetrics(projectsFromSvn, projectsFromGit, "Projects from SVN", "Projects from Git")
 print(analysis_results)
-write.csv(analysis_results, "vcs_analysis_results.csv")
+write.csv(analysis_results, "vcs_analysis_results.csv", quote=FALSE)
 print("")
 
 print("DevTools vs non-dev tools ")
@@ -269,7 +272,7 @@ devTools <- data[data$Application_type == "DevTool", ]
 notDevTools <- data[data$Application_type != "DevTool", ]
 analysis_results <- calculateAggregatedMetrics(devTools,notDevTools, "Development tools", "Non-development tools")
 print(analysis_results)
-write.csv(analysis_results, "devtools_analysis_results.csv")
+write.csv(analysis_results, "devtools_analysis_results.csv", quote=FALSE)
 print("")
 
 print("SDK projects vs non-SDK projects ")
@@ -277,6 +280,6 @@ sdkProjects <- data[data$Development_toolset != "--", ]
 notSdkProjects <- data[data$Development_toolset == "--", ]
 analysis_results <- calculateAggregatedMetrics(sdkProjects,notSdkProjects, "SDK projects", "Non-SDK projects")
 print(analysis_results)
-write.csv(analysis_results, "sdk_analysis_results.csv")
+write.csv(analysis_results, "sdk_analysis_results.csv", quote=FALSE)
 print("")
 
