@@ -17,11 +17,12 @@ require 'utils'
 
 class VersionNumberingAnalyzer
   
-  attr_accessor :releaseHistory, :versionInconsistencies
+  attr_accessor :releaseHistory, :versionInconsistencies, :lengthOfLongestVersion
   
   def initialize(releaseHistory = nil)
     @releaseHistory = releaseHistory
     @versionInconsistencies = VersionInconsistencies.new
+    @lengthOfLongestVersion = 0
     if !@releaseHistory.nil? then 
       @releaseHistory.each_with_index{ |strVersion, i|
         if i != 0
@@ -29,6 +30,10 @@ class VersionNumberingAnalyzer
           strVersion2 = @releaseHistory[i]
           version1 = VersionNumber.new(strVersion1)
           version2 = VersionNumber.new(strVersion2)
+          version1Length = version1.numberOfCompounds
+          version2Length = version2.numberOfCompounds
+          @lengthOfLongestVersion = (version1Length > @lengthOfLongestVersion ? version1Length : @lengthOfLongestVersion )
+          @lengthOfLongestVersion = (version2Length > @lengthOfLongestVersion ? version2Length : @lengthOfLongestVersion )
           severity = @versionInconsistencies.versionMegalomaniaSeverity(VersionNumber.new(strVersion1), VersionNumber.new(strVersion2))
           
           VersionNumber.numericCompounds.each { |key, value|
@@ -45,7 +50,7 @@ class VersionNumberingAnalyzer
             end
             if compound2.nil? ^ compound1.nil?
               @versionInconsistencies.incrementEmptyJump(compoundId)
-              @versionInconsistencies.addEmptyJumpValue(compoundId, version2.numberOfCompounds)
+              @versionInconsistencies.addEmptyJumpValue(compoundId, version2Length)
             elsif compound2.class == Fixnum && compound1.class == Fixnum
               if (compound2 - compound1 == 1) then
                 @versionInconsistencies.incrementVersionCompound(compoundId)

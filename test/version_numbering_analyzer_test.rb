@@ -126,4 +126,15 @@ class VersionNumberingAnalyzerTest < Test::Unit::TestCase
     assert_equal([1,1,1,1,1,1], @vna.getCycleLengths(VersionNumber.versionCompoundMethods[:fourthVersionCompound]))
   end
   
+  def test_length_of_longest_version
+    @vna = VersionNumberingAnalyzer.new(['0.1','0.2','0.3', '0.4'])
+    assert_equal(2, @vna.lengthOfLongestVersion)
+    @vna = VersionNumberingAnalyzer.new(['1.0','1.0.1','1.0.0.1', '1.2.3.4_p23'])
+    assert_equal(5, @vna.lengthOfLongestVersion)
+    @vna = VersionNumberingAnalyzer.new(['1.0','1.0.1','1.0.0.1', '2.0', '2.4.0', '3.0', '3.0.1.23'])
+    assert_equal(4, @vna.lengthOfLongestVersion)
+    @vna = VersionNumberingAnalyzer.new(['1.0','1.0.1','1.0.0.1', '1.2.3.4_p23', '2.0', '2.4.0', '3.0', '3.0.1.23'])
+    assert_equal(5, @vna.lengthOfLongestVersion)
+  end
+  
 end

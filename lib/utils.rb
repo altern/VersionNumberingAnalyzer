@@ -30,6 +30,6 @@ class Array
     end
 
     def mean 
-      sum / size
+      size.zero? ? 0 : sum / size
     end
   end

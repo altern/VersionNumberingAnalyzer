@@ -40,9 +40,11 @@ class CSVAggregator
     @metrics = {
       :firstVersionCompound => {
         :increments => Proc.new{ |vna| vna.versionInconsistencies.increments[VersionNumber.versionCompoundMethods[:firstVersionCompound]] },
+        :jumps => Proc.new{ |vna| vna.versionInconsistencies.jumpLengths[VersionNumber.versionCompoundMethods[:firstVersionCompound]] },
         :jumpsNumber => Proc.new{ |vna| vna.versionInconsistencies.jumpLengths[VersionNumber.versionCompoundMethods[:firstVersionCompound]].length },
         :jumpsSum => Proc.new{ |vna| vna.versionInconsistencies.jumpLengths[VersionNumber.versionCompoundMethods[:firstVersionCompound]].sum },
         :jumpsAverage => Proc.new{ |vna| vna.versionInconsistencies.jumpLengths[VersionNumber.versionCompoundMethods[:firstVersionCompound]].mean },
+        :emptyJumps => Proc.new{ |vna| vna.versionInconsistencies.emptyJumpValues[VersionNumber.versionCompoundMethods[:firstVersionCompound]] },
         :emptyJumpsNumber => Proc.new{ |vna| vna.versionInconsistencies.emptyJumpValues[VersionNumber.versionCompoundMethods[:firstVersionCompound]].length },
         :emptyJumpsSum => Proc.new{ |vna| vna.versionInconsistencies.emptyJumpValues[VersionNumber.versionCompoundMethods[:firstVersionCompound]].uniq.sum },
         :emptyJumpsAverage => Proc.new{ |vna| vna.versionInconsistencies.emptyJumpValues[VersionNumber.versionCompoundMethods[:firstVersionCompound]].mean},
@@ -59,9 +61,11 @@ class CSVAggregator
       },
       :secondVersionCompound => {
         :increments => Proc.new{ |vna| vna.versionInconsistencies.increments[VersionNumber.versionCompoundMethods[:secondVersionCompound]] },
+        :jumps => Proc.new{ |vna| vna.versionInconsistencies.jumpLengths[VersionNumber.versionCompoundMethods[:secondVersionCompound]] },
         :jumpsNumber => Proc.new{ |vna| vna.versionInconsistencies.jumpLengths[VersionNumber.versionCompoundMethods[:secondVersionCompound]].length },
         :jumpsSum => Proc.new{ |vna| vna.versionInconsistencies.jumpLengths[VersionNumber.versionCompoundMethods[:secondVersionCompound]].sum },
         :jumpsAverage => Proc.new{ |vna| vna.versionInconsistencies.jumpLengths[VersionNumber.versionCompoundMethods[:secondVersionCompound]].mean },
+        :emptyJumps => Proc.new{ |vna| vna.versionInconsistencies.emptyJumpValues[VersionNumber.versionCompoundMethods[:secondVersionCompound]] },
         :emptyJumpsNumber => Proc.new{ |vna| vna.versionInconsistencies.emptyJumpValues[VersionNumber.versionCompoundMethods[:secondVersionCompound]].length },
         :emptyJumpsSum => Proc.new{ |vna| vna.versionInconsistencies.emptyJumpValues[VersionNumber.versionCompoundMethods[:secondVersionCompound]].uniq.sum },
         :emptyJumpsAverage => Proc.new{ |vna| vna.versionInconsistencies.emptyJumpValues[VersionNumber.versionCompoundMethods[:secondVersionCompound]].mean },
@@ -70,9 +74,11 @@ class CSVAggregator
       },
       :thirdVersionCompound => {
         :increments => Proc.new{ |vna| vna.versionInconsistencies.increments[VersionNumber.versionCompoundMethods[:thirdVersionCompound]] },
+        :jumps => Proc.new{ |vna| vna.versionInconsistencies.jumpLengths[VersionNumber.versionCompoundMethods[:thirdVersionCompound]] },
         :jumpsNumber => Proc.new{ |vna| vna.versionInconsistencies.jumpLengths[VersionNumber.versionCompoundMethods[:thirdVersionCompound]].length },
         :jumpsSum => Proc.new{ |vna| vna.versionInconsistencies.jumpLengths[VersionNumber.versionCompoundMethods[:thirdVersionCompound]].sum },
         :jumpsAverage => Proc.new{ |vna| vna.versionInconsistencies.jumpLengths[VersionNumber.versionCompoundMethods[:thirdVersionCompound]].mean },
+        :emptyJumps => Proc.new{ |vna| vna.versionInconsistencies.emptyJumpValues[VersionNumber.versionCompoundMethods[:thirdVersionCompound]] },
         :emptyJumpsNumber => Proc.new{ |vna| vna.versionInconsistencies.emptyJumpValues[VersionNumber.versionCompoundMethods[:thirdVersionCompound]].length },
         :emptyJumpsSum => Proc.new{ |vna| vna.versionInconsistencies.emptyJumpValues[VersionNumber.versionCompoundMethods[:thirdVersionCompound]].uniq.sum },
         :emptyJumpsAverage => Proc.new{ |vna| vna.versionInconsistencies.emptyJumpValues[VersionNumber.versionCompoundMethods[:thirdVersionCompound]].mean },
@@ -81,9 +87,11 @@ class CSVAggregator
       },
       :fourthVersionCompound => {
         :increments => Proc.new{ |vna| vna.versionInconsistencies.increments[VersionNumber.versionCompoundMethods[:fourthVersionCompound]] },
+        :jumps => Proc.new{ |vna| vna.versionInconsistencies.jumpLengths[VersionNumber.versionCompoundMethods[:fourthVersionCompound]] },
         :jumpsNumber => Proc.new{ |vna| vna.versionInconsistencies.jumpLengths[VersionNumber.versionCompoundMethods[:fourthVersionCompound]].length },
         :jumpsSum => Proc.new{ |vna| vna.versionInconsistencies.jumpLengths[VersionNumber.versionCompoundMethods[:fourthVersionCompound]].sum },
         :jumpsAverage => Proc.new{ |vna| vna.versionInconsistencies.jumpLengths[VersionNumber.versionCompoundMethods[:fourthVersionCompound]].mean },
+        :emptyJumps => Proc.new{ |vna| vna.versionInconsistencies.emptyJumpValues[VersionNumber.versionCompoundMethods[:fourthVersionCompound]] },
         :emptyJumpsNumber => Proc.new{ |vna| vna.versionInconsistencies.emptyJumpValues[VersionNumber.versionCompoundMethods[:fourthVersionCompound]].length },
         :emptyJumpsSum => Proc.new{ |vna| vna.versionInconsistencies.emptyJumpValues[VersionNumber.versionCompoundMethods[:fourthVersionCompound]].uniq.sum },
         :emptyJumpsAverage => Proc.new{ |vna| vna.versionInconsistencies.emptyJumpValues[VersionNumber.versionCompoundMethods[:fourthVersionCompound]].mean},
@@ -92,9 +100,11 @@ class CSVAggregator
       },
       :suffixNumber => {
         :increments => Proc.new{ |vna| vna.versionInconsistencies.increments[VersionNumber.versionCompoundMethods[:suffixNumber]] },
+        :jumps => Proc.new{ |vna| vna.versionInconsistencies.jumpLengths[VersionNumber.versionCompoundMethods[:suffixNumber]] },
         :jumpsNumber => Proc.new{ |vna| vna.versionInconsistencies.jumpLengths[VersionNumber.versionCompoundMethods[:suffixNumber]].length },
         :jumpsSum => Proc.new{ |vna| vna.versionInconsistencies.jumpLengths[VersionNumber.versionCompoundMethods[:suffixNumber]].sum },
         :jumpsAverage => Proc.new{ |vna| vna.versionInconsistencies.jumpLengths[VersionNumber.versionCompoundMethods[:suffixNumber]].mean },
+        :emptyJumps => Proc.new{ |vna| vna.versionInconsistencies.emptyJumpValues[VersionNumber.versionCompoundMethods[:suffixNumber]] },
         :emptyJumpsNumber => Proc.new{ |vna| vna.versionInconsistencies.emptyJumpValues[VersionNumber.versionCompoundMethods[:suffixNumber]].length },
         :emptyJumpsSum => Proc.new{ |vna| vna.versionInconsistencies.emptyJumpValues[VersionNumber.versionCompoundMethods[:suffixNumber]].uniq.sum },
         :emptyJumpsAverage => Proc.new{ |vna| vna.versionInconsistencies.emptyJumpValues[VersionNumber.versionCompoundMethods[:suffixNumber]].mean },
@@ -132,36 +142,25 @@ class CSVAggregator
             metric = @metrics[:megalomaniaSeverity][id].call(vna)
             metric.empty? ? 0 : (metric.length - 1)*(index+1) 
           }.sum
-          
-          sum/num
+          num.zero? ? 0 : sum/num
         },
       },
       :aggregated => {
         :increments => Proc.new{ |vna| 
-          aggregatedMetric = 0
-          sum = 0
-          [:firstVersionCompound, :secondVersionCompound, :thirdVersionCompound, :fourthVersionCompound, :suffixNumber].each { |compoundId| 
-#            puts "  increments(#{compoundId.to_s}): " + @metrics[compoundId][:increments].call(vna).to_s
-            sum += @metrics[compoundId][:increments].call(vna)
-            aggregatedMetric += @metrics[compoundId][:increments].call(vna)*@metrics[compoundId][:cycleLengthAverage].call(vna)
-          }
-#          puts "  increments sum: " + sum.to_s
-#          puts "  aggregated increments: " + aggregatedMetric.to_s
-          aggregatedMetric
+          [:firstVersionCompound, :secondVersionCompound, :thirdVersionCompound, :fourthVersionCompound, :suffixNumber].map { |compoundId| 
+            @metrics[compoundId][:increments].call(vna)
+          }.sum
         },
         :jumpsNumber => Proc.new{ |vna| 
-          aggregatedMetric = 0
-          [:firstVersionCompound, :secondVersionCompound, :thirdVersionCompound, :fourthVersionCompound, :suffixNumber].each { |compoundId| 
-            aggregatedMetric += @metrics[compoundId][:jumpsNumber].call(vna)*@metrics[compoundId][:cycleLengthAverage].call(vna)
-          }
-          aggregatedMetric
+          [:firstVersionCompound, :secondVersionCompound, :thirdVersionCompound, :fourthVersionCompound, :suffixNumber].each_with_index.map { |compoundId, index| 
+            numOfChoices = vna.lengthOfLongestVersion - index
+            numOfChoices > 0 ? @metrics[compoundId][:jumpsNumber].call(vna)*numOfChoices : 0
+          }.sum
         },
         :emptyJumpsNumber => Proc.new{ |vna| 
-          aggregatedMetric = 0
-          [:firstVersionCompound, :secondVersionCompound, :thirdVersionCompound, :fourthVersionCompound, :suffixNumber].each { |compoundId| 
-            aggregatedMetric += @metrics[compoundId][:emptyJumpsNumber].call(vna)*@metrics[compoundId][:cycleLengthAverage].call(vna)
-          }
-          aggregatedMetric
+          [:firstVersionCompound, :secondVersionCompound, :thirdVersionCompound, :fourthVersionCompound, :suffixNumber].map { |compoundId| 
+            @metrics[compoundId][:emptyJumps].call(vna)
+          }.inject(:+).uniq.sum
         },
 #        :versionPlaceholders => Proc.new{ |vna| 
 #          aggregatedMetric = 0
@@ -171,11 +170,9 @@ class CSVAggregator
 #          aggregatedMetric
 #        },
         :cycleLengthAverage => Proc.new{ |vna| 
-          aggregatedMetric = 0
-          [:firstVersionCompound, :secondVersionCompound, :thirdVersionCompound, :fourthVersionCompound, :suffixNumber].each { |compoundId| 
-            aggregatedMetric += @metrics[compoundId][:cycleLengthAverage].call(vna)*@metrics[compoundId][:cycleLengthAverage].call(vna)
-          }
-          aggregatedMetric
+          [:firstVersionCompound, :secondVersionCompound, :thirdVersionCompound, :fourthVersionCompound, :suffixNumber].map { |compoundId| 
+            @metrics[compoundId][:cycleLengthAverage].call(vna)
+          }.mean
         },
       },
       :aggregatedInconsistencyScore => Proc.new{ |vna| 0 }
@@ -186,10 +183,10 @@ def generateCSV
   CSV.open(@resultFilename, 'w') do |csv_object|
     header = @headerColumns.values
     header += [
-      '1st version compound increments', 
-      '2nd version compound increments', 
-      '3rd version compound increments', 
-      '4th version compound increments', 
+      '1st vc increments', 
+      '2nd vc increments', 
+      '3rd vc increments', 
+      '4th vc increments', 
       'Suffix number increments'
     ]
     header += [
@@ -198,7 +195,7 @@ def generateCSV
       '1st vc avg of jumps', 
       '2nd vc number of jumps', 
       '2nd vc sum of jumps', 
-      '2nd vc svg of jumps', 
+      '2nd vc avg of jumps', 
       '3rd vc number of jumps', 
       '3rd vc sum of jumps', 
       '3rd vc avg of jumps', 
@@ -207,7 +204,7 @@ def generateCSV
       '4th vc avg of jumps', 
       'Suffix number of jumps',
       'Suffix sum of jumps',
-      'Suffix avg of jumps',
+      'Suffix avg of jumps'
     ]
     header += [
       '1st vc number of empty jumps', 
@@ -224,7 +221,7 @@ def generateCSV
       '4th vc avg of empty jumps', 
       'Suffix number of empty jumps', 
       'Suffix sum of empty jumps', 
-      'Suffix avg of empty jumps', 
+      'Suffix avg of empty jumps'
     ]
 #    header += ['1st version compound placeholders', '2nd version compound placeholders', '3rd version compound placeholders', 
 #      '4th version compound placeholders', 'Suffix number placeholders']
@@ -233,7 +230,8 @@ def generateCSV
       '2nd vc avg cycle length', 
       '3rd vc avg cycle length', 
       '4th vc avg cycle length', 
-      'Suffix number avg cycle length']
+      'Suffix number avg cycle length'
+    ]
     header += [
 #      'Megalomania of 1st degree severity', 
 #      'Megalomania of 2nd degree severity',
@@ -241,14 +239,16 @@ def generateCSV
 #      'Megalomania of 4th degree severity', 
       'Number of megalomania severities',
       'Sum of megalomania severities',
-      'Average of megalomania severities',
-      ]
+      'Average of megalomania severities'
+    ]
     header += [
       'Aggregated increments', 
       'Aggregated jumps', 
       'Aggregated empty jumps', 
 #      'Aggregated version placeholders', 
-      'Aggregated cycle length']
+      'Aggregated cycle length',
+      'Aggregated inconsistency score',
+    ]
 #    puts header.join(',')
     csv_object << header
     @projectInfo.each_with_index { |project,i|
@@ -337,19 +337,48 @@ def generateCSV
           @metrics[:megalomaniaSeverity][:number].call(projectVersionNumberingAnalyzer),
           @metrics[:megalomaniaSeverity][:sum].call(projectVersionNumberingAnalyzer),
           @metrics[:megalomaniaSeverity][:average].call(projectVersionNumberingAnalyzer),
+          
           @metrics[:aggregated][:increments].call(projectVersionNumberingAnalyzer),
           @metrics[:aggregated][:jumpsNumber].call(projectVersionNumberingAnalyzer),
           @metrics[:aggregated][:emptyJumpsNumber].call(projectVersionNumberingAnalyzer),
 #          @metrics[:aggregated][:versionPlaceholders].call(projectVersionNumberingAnalyzer),
           @metrics[:aggregated][:cycleLengthAverage].call(projectVersionNumberingAnalyzer),
-          @metrics[:aggregatedInconsistencyScore].call(projectVersionNumberingAnalyzer),
+          @metrics[:megalomaniaSeverity][:average].call(projectVersionNumberingAnalyzer) + @metrics[:aggregated][:jumpsNumber].call(projectVersionNumberingAnalyzer) + @metrics[:aggregated][:emptyJumpsNumber].call(projectVersionNumberingAnalyzer),
         ]
 #        puts projectData.join(',')
         csv_object << projectData
         puts "
+          length of longest version => #{projectVersionNumberingAnalyzer.lengthOfLongestVersion}
+          jumps 1 => #{@metrics[:firstVersionCompound][:jumps].call(projectVersionNumberingAnalyzer)}
+          jumps 1 number => #{@metrics[:firstVersionCompound][:jumpsNumber].call(projectVersionNumberingAnalyzer)}
+          jumps 2 => #{@metrics[:secondVersionCompound][:jumps].call(projectVersionNumberingAnalyzer)}
+          jumps 2 number => #{@metrics[:secondVersionCompound][:jumpsNumber].call(projectVersionNumberingAnalyzer)}
+          jumps 3 => #{@metrics[:thirdVersionCompound][:jumps].call(projectVersionNumberingAnalyzer)}
+          jumps 3 number => #{@metrics[:thirdVersionCompound][:jumpsNumber].call(projectVersionNumberingAnalyzer)}
+          jumps 4 => #{@metrics[:fourthVersionCompound][:jumps].call(projectVersionNumberingAnalyzer)}
+          jumps 4 number => #{@metrics[:fourthVersionCompound][:jumpsNumber].call(projectVersionNumberingAnalyzer)}
+          jumps 5 => #{@metrics[:suffixNumber][:jumps].call(projectVersionNumberingAnalyzer)}
+          jumps 5 number => #{@metrics[:suffixNumber][:jumpsNumber].call(projectVersionNumberingAnalyzer)}
+          jumps aggregated number => #{@metrics[:aggregated][:jumpsNumber].call(projectVersionNumberingAnalyzer)}
+          jumps 1 => #{@metrics[:firstVersionCompound][:jumps].call(projectVersionNumberingAnalyzer)}
+          empty jumps 1 number => #{@metrics[:firstVersionCompound][:emptyJumpsNumber].call(projectVersionNumberingAnalyzer)}
+          empty jumps 2 => #{@metrics[:secondVersionCompound][:emptyJumps].call(projectVersionNumberingAnalyzer)}
+          empty jumps 2 number => #{@metrics[:secondVersionCompound][:emptyJumpsNumber].call(projectVersionNumberingAnalyzer)}
+          empty jumps 3 => #{@metrics[:thirdVersionCompound][:emptyJumps].call(projectVersionNumberingAnalyzer)}
+          empty jumps 3 number => #{@metrics[:thirdVersionCompound][:emptyJumpsNumber].call(projectVersionNumberingAnalyzer)}
+          empty jumps 4 => #{@metrics[:fourthVersionCompound][:emptyJumps].call(projectVersionNumberingAnalyzer)}
+          empty jumps 4 number => #{@metrics[:fourthVersionCompound][:emptyJumpsNumber].call(projectVersionNumberingAnalyzer)}
+          empty jumps 5 => #{@metrics[:suffixNumber][:emptyJumps].call(projectVersionNumberingAnalyzer)}
+          empty jumps 5 number => #{@metrics[:suffixNumber][:emptyJumpsNumber].call(projectVersionNumberingAnalyzer)}
+          empty jumps aggregated number => #{@metrics[:aggregated][:emptyJumpsNumber].call(projectVersionNumberingAnalyzer)}
           megalomania number => #{@metrics[:megalomaniaSeverity][:number].call(projectVersionNumberingAnalyzer)}
           megalomania sum => #{@metrics[:megalomaniaSeverity][:sum].call(projectVersionNumberingAnalyzer)}
-          megalomania average => #{@metrics[:megalomaniaSeverity][:average].call(projectVersionNumberingAnalyzer)}"
+          megalomania average => #{@metrics[:megalomaniaSeverity][:average].call(projectVersionNumberingAnalyzer)}
+          aggregated measure of inconsistency => #{
+            @metrics[:megalomaniaSeverity][:average].call(projectVersionNumberingAnalyzer) + 
+            @metrics[:aggregated][:jumpsNumber].call(projectVersionNumberingAnalyzer) +
+            @metrics[:aggregated][:emptyJumpsNumber].call(projectVersionNumberingAnalyzer)
+          }"
       end
     }
     puts "DONE!"
