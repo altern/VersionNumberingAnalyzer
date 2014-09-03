@@ -50,20 +50,22 @@ class VersionNumberingAnalyzerTest < Test::Unit::TestCase
   end
   
   def test_empty_jumps
-    @vna = VersionNumberingAnalyzer.new(['0.1','0.2','0.3'])
-    assert_equal(0, @vna.versionInconsistencies.emptyJumps[VersionNumber.versionCompoundMethods[:firstVersionCompound]])
-    assert_equal(0, @vna.versionInconsistencies.emptyJumps[VersionNumber.versionCompoundMethods[:secondVersionCompound]])
-    @vna = VersionNumberingAnalyzer.new(['1.0','1.1','1.2', '1.3', '2.0', '2.1'])
-    assert_equal(0, @vna.versionInconsistencies.emptyJumps[VersionNumber.versionCompoundMethods[:firstVersionCompound]])
-    assert_equal(0, @vna.versionInconsistencies.emptyJumps[VersionNumber.versionCompoundMethods[:secondVersionCompound]])
-    @vna = VersionNumberingAnalyzer.new(['1.0.0','1.0.1','1.0.2', '1.0.3', '2.0', '2.1'])
-    assert_equal(0, @vna.versionInconsistencies.emptyJumps[VersionNumber.versionCompoundMethods[:firstVersionCompound]])
-    assert_equal(0, @vna.versionInconsistencies.emptyJumps[VersionNumber.versionCompoundMethods[:secondVersionCompound]])
-#    assert_equal(1, @vna.versionInconsistencies.emptyJumps[VersionNumber.versionCompoundMethods[:thirdVersionCompound]])
     @vna = VersionNumberingAnalyzer.new(['1.0.0','1.0.1','1.0.3', '1.0.4', '2.0.1', '2.0.2'])
     assert_equal(0, @vna.versionInconsistencies.emptyJumps[VersionNumber.versionCompoundMethods[:firstVersionCompound]])
     assert_equal(0, @vna.versionInconsistencies.emptyJumps[VersionNumber.versionCompoundMethods[:secondVersionCompound]])
     assert_equal(0, @vna.versionInconsistencies.emptyJumps[VersionNumber.versionCompoundMethods[:thirdVersionCompound]], @vna.versionInconsistencies.emptyJumps)
+    
+    @vna = VersionNumberingAnalyzer.new(['1.0.0','1.0.1','1.0.2', '1.0.3', '2.0', '2.1', '2.1.0'])
+    assert_equal(0, @vna.versionInconsistencies.emptyJumps[VersionNumber.versionCompoundMethods[:firstVersionCompound]])
+    assert_equal(0, @vna.versionInconsistencies.emptyJumps[VersionNumber.versionCompoundMethods[:secondVersionCompound]])
+    assert_equal(2, @vna.versionInconsistencies.emptyJumps[VersionNumber.versionCompoundMethods[:thirdVersionCompound]])
+  end
+  
+  def test_empty_jump_values
+    @vna = VersionNumberingAnalyzer.new(['1.0.0','1.0.1','1.0.2', '1.0.3', '2.0', '2.1', '2.1.0'])
+    assert_equal([], @vna.versionInconsistencies.emptyJumpValues[VersionNumber.versionCompoundMethods[:firstVersionCompound]])
+    assert_equal([], @vna.versionInconsistencies.emptyJumpValues[VersionNumber.versionCompoundMethods[:secondVersionCompound]])
+    assert_equal([2, 3], @vna.versionInconsistencies.emptyJumpValues[VersionNumber.versionCompoundMethods[:thirdVersionCompound]])
   end
   
   def test_jumps
@@ -81,23 +83,28 @@ class VersionNumberingAnalyzerTest < Test::Unit::TestCase
     assert_equal(0, @vna.versionInconsistencies.jumps[VersionNumber.versionCompoundMethods[:firstVersionCompound]])
     assert_equal(0, @vna.versionInconsistencies.jumps[VersionNumber.versionCompoundMethods[:secondVersionCompound]])
     assert_equal(2, @vna.versionInconsistencies.jumps[VersionNumber.versionCompoundMethods[:thirdVersionCompound]])
+    @vna = VersionNumberingAnalyzer.new(['1.0','3.0','3.1', '3.3', '3.4', '3.6', '3.7', '3.10', '4.1'])
+    assert_equal(1, @vna.versionInconsistencies.jumps[VersionNumber.versionCompoundMethods[:firstVersionCompound]])
+    assert_equal(4, @vna.versionInconsistencies.jumps[VersionNumber.versionCompoundMethods[:secondVersionCompound]])
+    assert_equal(0, @vna.versionInconsistencies.jumps[VersionNumber.versionCompoundMethods[:thirdVersionCompound]])
   end
   
   def test_jump_pairs
-    @vna = VersionNumberingAnalyzer.new(['0.1','0.2','0.3'])
-    assert_equal([], @vna.versionInconsistencies.jumpPairs[VersionNumber.versionCompoundMethods[:firstVersionCompound]])
-    assert_equal([], @vna.versionInconsistencies.jumpPairs[VersionNumber.versionCompoundMethods[:secondVersionCompound]])
-    @vna = VersionNumberingAnalyzer.new(['1.0','1.1','1.2', '1.3', '2.0', '2.1'])
-    assert_equal([], @vna.versionInconsistencies.jumpPairs[VersionNumber.versionCompoundMethods[:firstVersionCompound]])
-    assert_equal([], @vna.versionInconsistencies.jumpPairs[VersionNumber.versionCompoundMethods[:secondVersionCompound]])
-    @vna = VersionNumberingAnalyzer.new(['1.0.0','1.0.1','1.0.2', '1.0.3', '2.0', '2.1'])
-    assert_equal([], @vna.versionInconsistencies.jumpPairs[VersionNumber.versionCompoundMethods[:firstVersionCompound]])
-    assert_equal([], @vna.versionInconsistencies.jumpPairs[VersionNumber.versionCompoundMethods[:secondVersionCompound]])
-    assert_equal([], @vna.versionInconsistencies.jumpPairs[VersionNumber.versionCompoundMethods[:thirdVersionCompound]])
     @vna = VersionNumberingAnalyzer.new(['1.0.0','1.0.1','1.0.3', '1.0.4', '2.0.1', '2.0.2'])
 #    assert_equal([], @vna.versionInconsistencies.jumpPairs[VersionNumber.versionCompoundMethods[:firstVersionCompound]], @vna.versionInconsistencies.jumpPairs)
 #    assert_equal([], @vna.versionInconsistencies.jumpPairs[VersionNumber.versionCompoundMethods[:secondVersionCompound]])
     assert_equal([['1.0.1','1.0.3'], ['1.0.4', '2.0.1']], @vna.versionInconsistencies.jumpPairs[VersionNumber.versionCompoundMethods[:thirdVersionCompound]])
+  end
+  
+  def test_jump_lengths
+    @vna = VersionNumberingAnalyzer.new(['1.0.0','1.0.1','1.0.3', '1.0.4', '2.0.1', '2.0.2'])
+    assert_equal([], @vna.versionInconsistencies.jumpLengths[VersionNumber.versionCompoundMethods[:firstVersionCompound]])
+    assert_equal([], @vna.versionInconsistencies.jumpLengths[VersionNumber.versionCompoundMethods[:secondVersionCompound]])
+    assert_equal([2, 1], @vna.versionInconsistencies.jumpLengths[VersionNumber.versionCompoundMethods[:thirdVersionCompound]])
+    @vna = VersionNumberingAnalyzer.new(['1.0','3.0','3.1', '3.3', '3.4', '3.6', '3.7', '3.10', '4.1'])
+    assert_equal([2], @vna.versionInconsistencies.jumpLengths[VersionNumber.versionCompoundMethods[:firstVersionCompound]])
+    assert_equal([2,2,3,1], @vna.versionInconsistencies.jumpLengths[VersionNumber.versionCompoundMethods[:secondVersionCompound]])
+    assert_equal([], @vna.versionInconsistencies.jumpLengths[VersionNumber.versionCompoundMethods[:thirdVersionCompound]])
   end
   
   def test_cycle_lengths

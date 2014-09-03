@@ -202,4 +202,14 @@ class VersionNumberTest < Test::Unit::TestCase
     assert_equal(31, vn.getCompoundById(VersionNumber.versionCompoundMethods[:suffixNumber]))
   end
   
+  def test_number_of_compounds
+    vn = VersionNumber.new("1.0.1")
+    assert_equal(3, vn.numberOfCompounds)
+    vn = VersionNumber.new("1.0.1.1")
+    assert_equal(4, vn.numberOfCompounds)
+    vn = VersionNumber.new("1.0.1.1_p34")
+    assert_equal(5, vn.numberOfCompounds)
+    
+  end
+  
 end

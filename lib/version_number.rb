@@ -113,4 +113,13 @@ class VersionNumber
     }
   end
   
+  def numberOfCompounds
+    @@numericalCompounds.map{|compoundId|
+      compound = @versionNumber[@@versionCompoundMethods[compoundId]]
+      if compound.class == String && compound.empty?
+        compound = nil
+      end
+      !compound.nil? ? 1 : 0
+    }.inject(:+)
+  end
 end

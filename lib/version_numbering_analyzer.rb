@@ -45,12 +45,13 @@ class VersionNumberingAnalyzer
             end
             if compound2.nil? ^ compound1.nil?
               @versionInconsistencies.incrementEmptyJump(compoundId)
+              @versionInconsistencies.addEmptyJumpValue(compoundId, version2.numberOfCompounds)
             elsif compound2.class == Fixnum && compound1.class == Fixnum
               if (compound2 - compound1 == 1) then
                 @versionInconsistencies.incrementVersionCompound(compoundId)
               elsif ( compound2 - compound1 >= 2 ) && (!compound1.nil? && !compound2.nil?) || (compound2 < compound1 && compound2 > 0)
                 @versionInconsistencies.incrementJump(compoundId)
-                @versionInconsistencies.addJumpLength(compoundId, compound2 - compound1)
+                @versionInconsistencies.addJumpLength(compoundId, compound2 < compound1 ? compound2 : compound2 - compound1)
                 @versionInconsistencies.addJumpPair(compoundId, strVersion1, strVersion2)
               end
             end

@@ -14,6 +14,7 @@ class VersionInconsistencies
     @megalomaniaSeverities = []
     @megalomaniaSeverityPairs = []
     @emptyJumps = Array.new(VersionNumber.versionCompoundMethods.length, 0)
+    @emptyJumpValues = Array.new(VersionNumber.versionCompoundMethods.length, [])
     @versionPlaceholders = Array.new(VersionNumber.versionCompoundMethods.length, 0)
   end
   
@@ -89,6 +90,14 @@ class VersionInconsistencies
     end
   end
   
+  def addEmptyJumpValue(compoundId, value)
+    if !@emptyJumpValues[compoundId].empty?
+      @emptyJumpValues[compoundId] << value
+    else
+      @emptyJumpValues[compoundId] = [value]
+    end
+  end
+  
   def increments(*args) 
     if args.length == 1
       compoundId = args[0]
@@ -114,6 +123,15 @@ class VersionInconsistencies
       @jumps[compoundId] unless @jumps[compoundId].nil?
     else 
       @jumps
+    end
+  end
+  
+  def emptyJumpValues(*args) 
+    if args.length == 1
+      compoundId = args[0]
+      @emptyJumpValues[compoundId] unless @emptyJumpValues[compoundId].nil?
+    else 
+      @emptyJumpValues
     end
   end
   
