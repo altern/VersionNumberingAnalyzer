@@ -13,8 +13,9 @@ if(!exists('util_R')){
 		if(!column %in% colnames(dataFrame)) {
 			return(dataFrame)
 		}
-		biggest <- unname(quantile(dataFrame[column], PRUNE_PERCENTILE, na.rm=TRUE))
-		prunnedData <- dataFrame[dataFrame[column] < biggest, ]
+		dataFrame <- dataFrame[dataFrame[column] != "--", ]
+		biggest <- unname(quantile(as.numeric(dataFrame[[column]]), PRUNE_PERCENTILE, na.rm=TRUE))
+		prunnedData <- dataFrame[dataFrame[[column]] < biggest, ]
 
 		return(prunnedData)
 	}
@@ -32,7 +33,7 @@ if(!exists('util_R')){
 		if(!column %in% colnames(dataFrame)) {
 			return(dataFrame)
 		}
-		withoutZeroes <- dataFrame[dataFrame[column] > 0, ]
+		withoutZeroes <- dataFrame[dataFrame[[column]] > 0, ]
 
 		return(withoutZeroes)
 	}
