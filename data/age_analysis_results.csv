@@ -1,5 +1,5 @@
 ,Metric names,Mean of 1st metric,Mean of 2nd metric,p-values
-1,Age vs Number of versions,11,99.3333,0.0143
+1,Age vs Number of versions,11,95.1,0.0092
 2,Age vs Number of megalomania severities,10.8333,2.1667,0.0335
 3,Age vs Sum of megalomania severities,10.8333,2.5,0.0355
-4,Age vs Aggregated empty jumps,10.5,5.5,0.035
+4,Age vs Aggregated empty jumps,10.5714,5.4286,0.0213

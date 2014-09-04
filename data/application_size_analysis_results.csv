@@ -1,6 +1,6 @@
 ,Metric names,Mean of 1st metric,Mean of 2nd metric,p-values
-1,Application size vs Number of versions,51.686,88.234,3e-04
+1,Application size vs Number of versions,42.2029,89.5417,0
 2,Application size vs Number of megalomania severities,51.2904,2.6667,2e-04
 3,Application size vs Sum of megalomania severities,51.2904,2.9259,3e-04
 4,Application size vs Average of megalomania severities,54.5681,1.0554,0
-5,Application size vs Aggregated empty jumps,58.4385,5,0.002
+5,Application size vs Aggregated empty jumps,41.3719,4.9259,0.002
