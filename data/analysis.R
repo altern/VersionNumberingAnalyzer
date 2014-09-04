@@ -29,9 +29,10 @@ analyzeColumnDependencies <- function(colName1, colName2) {
     gsub("_", " ", paste0(colName1, " vs ",colName2)), 
     round(mean(v1), 4), 
     round(mean(v2), 4), 
-    round(pvalue, 4)
+    round(pvalue, 4),
+    round(cov(v1, v2), 4)
   )
-  names(frame) <- c("metricName", "average1", "average2", "pvalue")
+  names(frame) <- c("metricName", "average1", "average2", "pvalue", "covariance")
   return(frame)
 }
 calculateMetric <- function ( metricName, colName, d1, d2, name1, name2, values ) {
@@ -373,6 +374,7 @@ averages2 <- c()
 names1 <- c()
 names2 <- c()
 pvalues <- c()
+covariances <- c()
 
 print("Project age analysis")
 
@@ -383,12 +385,13 @@ for(metricName in metrics) {
       metricNames <- c(metricNames, as.character(frame$metricName)); 
       averages1 <- c(averages1, frame$average1); averages2 <- c(averages2, frame$average2)
       pvalues <- c(pvalues, frame$pvalue)
+      covariances <- c(covariances, frame$covariance)
     }
   }
 }
 
-analysis_results <- data.frame(as.character(metricNames), averages1, averages2, pvalues)
-names(analysis_results) <- c("Metric names", "Mean of 1st metric", "Mean of 2nd metric", "p-values")
+analysis_results <- data.frame(as.character(metricNames), averages1, averages2, pvalues, covariances)
+names(analysis_results) <- c("Metric names", "Mean of 1st metric", "Mean of 2nd metric", "p-values", "covariances")
 print(analysis_results)
 write.csv(analysis_results, "age_analysis_results.csv", quote=FALSE) 
 
@@ -398,6 +401,7 @@ averages2 <- c()
 names1 <- c()
 names2 <- c()
 pvalues <- c()
+covariances <- c()
 
 print("Project team size analysis")
 
@@ -408,12 +412,13 @@ for(metricName in metrics) {
       metricNames <- c(metricNames, as.character(frame$metricName)); 
       averages1 <- c(averages1, frame$average1); averages2 <- c(averages2, frame$average2)
       pvalues <- c(pvalues, frame$pvalue)
+      covariances <- c(covariances, frame$covariance)
     }
   }
 }
 
-analysis_results <- data.frame(as.character(metricNames), averages1, averages2, pvalues)
-names(analysis_results) <- c("Metric names", "Mean of 1st metric", "Mean of 2nd metric", "p-values")
+analysis_results <- data.frame(as.character(metricNames), averages1, averages2, pvalues, covariances)
+names(analysis_results) <- c("Metric names", "Mean of 1st metric", "Mean of 2nd metric", "p-values", "covariances")
 print(analysis_results)
 write.csv(analysis_results, "team_size_analysis_results.csv", quote=FALSE) 
 metricNames <- c()
@@ -422,6 +427,7 @@ averages2 <- c()
 names1 <- c()
 names2 <- c()
 pvalues <- c()
+covariances <- c()
 
 print("Project application size analysis")
 
@@ -432,12 +438,13 @@ for(metricName in metrics) {
       metricNames <- c(metricNames, as.character(frame$metricName)); 
       averages1 <- c(averages1, frame$average1); averages2 <- c(averages2, frame$average2)
       pvalues <- c(pvalues, frame$pvalue)
+      covariances <- c(covariances, frame$covariance)
     }
   }
 }
 
-analysis_results <- data.frame(as.character(metricNames), averages1, averages2, pvalues)
-names(analysis_results) <- c("Metric names", "Mean of 1st metric", "Mean of 2nd metric", "p-values")
+analysis_results <- data.frame(as.character(metricNames), averages1, averages2, pvalues, covariances)
+names(analysis_results) <- c("Metric names", "Mean of 1st metric", "Mean of 2nd metric", "p-values", "covariances")
 print(analysis_results)
 write.csv(analysis_results, "application_size_analysis_results.csv", quote=FALSE) 
 
