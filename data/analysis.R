@@ -357,70 +357,16 @@ print(analysis_results)
 write.csv(analysis_results, "sdk_analysis_results.csv", quote=FALSE)
 print("")
 
+metrics <- c(
+  "Number_of_versions", 
+  "Number_of_megalomania_severities", 
+  "Sum_of_megalomania_severities", 
+  "Average_of_megalomania_severities", 
+  "Aggregated_jumps",
+  "Aggregated_empty_jumps",
+  "Aggregated_inconsistency_score"
+)
 
-print("Project age analysis")
-frame <- analyzeColumnDependencies("Age", "Number_of_versions")
-if(frame$pvalue < 0.05) {
-  metricNames <- c(metricNames, as.character(frame$metricName));
-  averages1 <- c(averages1, frame$average1); averages2 <- c(averages2, frame$average2)
-  pvalues <- c(pvalues, frame$pvalue)
-}
-frame <- analyzeColumnDependencies("Age", "Aggregated_cycle_length")
-if(frame$pvalue < 0.05) {
-  metricNames <- c(metricNames, as.character(frame$metricName));
-  averages1 <- c(averages1, frame$average1); averages2 <- c(averages2, frame$average2)
-  pvalues <- c(pvalues, frame$pvalue)
-}
-frame <- analyzeColumnDependencies("Age", "Number_of_megalomania_severities")
-if(frame$pvalue < 0.05) {
-  metricNames <- c(metricNames, as.character(frame$metricName));
-  averages1 <- c(averages1, frame$average1); averages2 <- c(averages2, frame$average2)
-  pvalues <- c(pvalues, frame$pvalue)
-}
-frame <- analyzeColumnDependencies("Age", "Sum_of_megalomania_severities")
-if(frame$pvalue < 0.05) {
-  metricNames <- c(metricNames, as.character(frame$metricName));
-  averages1 <- c(averages1, frame$average1); averages2 <- c(averages2, frame$average2)
-  pvalues <- c(pvalues, frame$pvalue)
-}
-frame <- analyzeColumnDependencies("Age", "Average_of_megalomania_severities")
-if(frame$pvalue < 0.05) {
-  metricNames <- c(metricNames, as.character(frame$metricName));
-  averages1 <- c(averages1, frame$average1); averages2 <- c(averages2, frame$average2)
-  pvalues <- c(pvalues, frame$pvalue)
-}
-frame <- analyzeColumnDependencies("Age", "Aggregated_jumps")
-if(frame$pvalue < 0.05) {
-  metricNames <- c(metricNames, as.character(frame$metricName));
-  averages1 <- c(averages1, frame$average1); averages2 <- c(averages2, frame$average2)
-  pvalues <- c(pvalues, frame$pvalue)
-}
-frame <- analyzeColumnDependencies("Age", "Aggregated_empty_jumps")
-if(frame$pvalue < 0.05) {
-  metricNames <- c(metricNames, as.character(frame$metricName));
-  averages1 <- c(averages1, frame$average1); averages2 <- c(averages2, frame$average2)
-  pvalues <- c(pvalues, frame$pvalue)
-}
-frame <- analyzeColumnDependencies("Age", "Aggregated_inconsistency_score")
-if(frame$pvalue < 0.05) {
-  metricNames <- c(metricNames, as.character(frame$metricName));
-  averages1 <- c(averages1, frame$average1); averages2 <- c(averages2, frame$average2)
-  pvalues <- c(pvalues, frame$pvalue)
-}
-if(nrow(frame) != 0) {
-  if(frame$pvalue < 0.05) {
-    metricNames <- c(metricNames, as.character(frame$metricName)); 
-    averages1 <- c(averages1, frame$average1); averages2 <- c(averages2, frame$average2)
-    pvalues <- c(pvalues, frame$pvalue)
-  }
-  analysis_results <- data.frame(as.character(metricNames), averages1, averages2, pvalues)
-  names(analysis_results) <- c("Metric names", "Mean of 1st metric", "Mean of 2nd metric", "p-values")
-  print(analysis_results)
-  write.csv(analysis_results, "age_analysis_results.csv", quote=FALSE) 
-}  
-
-
-print("Project team size analysis")
 metricNames <- c()
 averages1 <- c()
 averages2 <- c()
@@ -428,57 +374,152 @@ names1 <- c()
 names2 <- c()
 pvalues <- c()
 
-frame <- analyzeColumnDependencies("Team_size", "Number_of_versions")
-if(frame$pvalue < 0.05) {
-  metricNames <- c(metricNames, as.character(frame$metricName));
-  averages1 <- c(averages1, frame$average1); averages2 <- c(averages2, frame$average2)
-  pvalues <- c(pvalues, frame$pvalue)
-}
-frame <- analyzeColumnDependencies("Team_size", "Aggregated_cycle_length")
-if(frame$pvalue < 0.05) {
-  metricNames <- c(metricNames, as.character(frame$metricName));
-  averages1 <- c(averages1, frame$average1); averages2 <- c(averages2, frame$average2)
-  pvalues <- c(pvalues, frame$pvalue)
-}
-frame <- analyzeColumnDependencies("Team_size", "Number_of_megalomania_severities")
-if(frame$pvalue < 0.05) {
-  metricNames <- c(metricNames, as.character(frame$metricName));
-  averages1 <- c(averages1, frame$average1); averages2 <- c(averages2, frame$average2)
-  pvalues <- c(pvalues, frame$pvalue)
-}
-frame <- analyzeColumnDependencies("Team_size", "Sum_of_megalomania_severities")
-if(frame$pvalue < 0.05) {
-  metricNames <- c(metricNames, as.character(frame$metricName));
-  averages1 <- c(averages1, frame$average1); averages2 <- c(averages2, frame$average2)
-  pvalues <- c(pvalues, frame$pvalue)
-}
-frame <- analyzeColumnDependencies("Team_size", "Average_of_megalomania_severities")
-if(frame$pvalue < 0.05) {
-  metricNames <- c(metricNames, as.character(frame$metricName));
-  averages1 <- c(averages1, frame$average1); averages2 <- c(averages2, frame$average2)
-  pvalues <- c(pvalues, frame$pvalue)
-}
-frame <- analyzeColumnDependencies("Team_size", "Aggregated_jumps")
-if(frame$pvalue < 0.05) {
-  metricNames <- c(metricNames, as.character(frame$metricName));
-  averages1 <- c(averages1, frame$average1); averages2 <- c(averages2, frame$average2)
-  pvalues <- c(pvalues, frame$pvalue)
-}
-frame <- analyzeColumnDependencies("Team_size", "Aggregated_empty_jumps")
-if(frame$pvalue < 0.05) {
-  metricNames <- c(metricNames, as.character(frame$metricName));
-  averages1 <- c(averages1, frame$average1); averages2 <- c(averages2, frame$average2)
-  pvalues <- c(pvalues, frame$pvalue)
-}
-frame <- analyzeColumnDependencies("Team_size", "Aggregated_inconsistency_score")
-if(nrow(frame) != 0) {
-  if(frame$pvalue < 0.05) {
-    metricNames <- c(metricNames, as.character(frame$metricName)); 
-    averages1 <- c(averages1, frame$average1); averages2 <- c(averages2, frame$average2)
-    pvalues <- c(pvalues, frame$pvalue)
+print("Project age analysis")
+
+for(metricName in metrics) {
+  frame <- analyzeColumnDependencies("Age", metricName)
+  if(nrow(frame) != 0) {
+    if(frame$pvalue < 0.05) {
+      metricNames <- c(metricNames, as.character(frame$metricName)); 
+      averages1 <- c(averages1, frame$average1); averages2 <- c(averages2, frame$average2)
+      pvalues <- c(pvalues, frame$pvalue)
+    }
   }
-  analysis_results <- data.frame(as.character(metricNames), averages1, averages2, pvalues)
-  names(analysis_results) <- c("Metric names", "Mean of 1st metric", "Mean of 2nd metric", "p-values")
-  print(analysis_results)
-  write.csv(analysis_results, "team_size_analysis_results.csv", quote=FALSE) 
-}  
+}
+
+analysis_results <- data.frame(as.character(metricNames), averages1, averages2, pvalues)
+names(analysis_results) <- c("Metric names", "Mean of 1st metric", "Mean of 2nd metric", "p-values")
+print(analysis_results)
+write.csv(analysis_results, "age_analysis_results.csv", quote=FALSE) 
+
+metricNames <- c()
+averages1 <- c()
+averages2 <- c()
+names1 <- c()
+names2 <- c()
+pvalues <- c()
+
+print("Project team size analysis")
+
+for(metricName in metrics) {
+  frame <- analyzeColumnDependencies("Team_size", metricName)
+  if(nrow(frame) != 0) {
+    if(frame$pvalue < 0.05) {
+      metricNames <- c(metricNames, as.character(frame$metricName)); 
+      averages1 <- c(averages1, frame$average1); averages2 <- c(averages2, frame$average2)
+      pvalues <- c(pvalues, frame$pvalue)
+    }
+  }
+}
+
+analysis_results <- data.frame(as.character(metricNames), averages1, averages2, pvalues)
+names(analysis_results) <- c("Metric names", "Mean of 1st metric", "Mean of 2nd metric", "p-values")
+print(analysis_results)
+write.csv(analysis_results, "team_size_analysis_results.csv", quote=FALSE) 
+metricNames <- c()
+averages1 <- c()
+averages2 <- c()
+names1 <- c()
+names2 <- c()
+pvalues <- c()
+
+print("Project application size analysis")
+
+for(metricName in metrics) {
+  frame <- analyzeColumnDependencies("Application_size", metricName)
+  if(nrow(frame) != 0) {
+    if(frame$pvalue < 0.05) {
+      metricNames <- c(metricNames, as.character(frame$metricName)); 
+      averages1 <- c(averages1, frame$average1); averages2 <- c(averages2, frame$average2)
+      pvalues <- c(pvalues, frame$pvalue)
+    }
+  }
+}
+
+analysis_results <- data.frame(as.character(metricNames), averages1, averages2, pvalues)
+names(analysis_results) <- c("Metric names", "Mean of 1st metric", "Mean of 2nd metric", "p-values")
+print(analysis_results)
+write.csv(analysis_results, "application_size_analysis_results.csv", quote=FALSE) 
+
+metricNames <- c()
+stDevs <- c()
+medians <- c()
+means <- c()
+mins <- c()
+maxs <- c()
+
+metrics <- c(
+  "Team_size", 
+  "Age", 
+  "Application_size", 
+  "Number_of_versions"
+)
+
+for (metricName in metrics) {
+  metricValues <- as.numeric(data[[metricName]][data[[metricName]] != "--"])
+  metricValues <- metricValues[metricValues != 0]
+  if(length(metricValues) == 0) {
+    next()
+  }
+  metricNames <- c(metricNames, as.character(gsub("_" , " ", metricName)))
+  stDevs <- c(stDevs, round(sd(metricValues), 4))
+  medians <- c(medians, round(median(metricValues) , 4))
+  means <- c(means, round(mean(metricValues), 4 ))
+  mins <- c(mins, round(min(metricValues), 4 ))
+  maxs <- c(maxs, round(max(metricValues), 4))
+}
+
+project_info <- data.frame(metricNames, stDevs, medians, means, mins, maxs)
+names(project_info) <- c("Metric name", "Standard deviation", "Median", "Mean", "Min", "Max")
+print(project_info)
+write.csv(project_info, "project_info_analysis_results.csv", quote=FALSE)
+
+metricNames <- c()
+stDevs <- c()
+medians <- c()
+means <- c()
+mins <- c()
+maxs <- c()
+
+metrics <- c(
+  "Aggregated_jumps", 
+  "Aggregated_empty_jumps",
+  "Number_of_megalomania_severities",
+  "Sum_of_megalomania_severities",
+  "Average_of_megalomania_severities",
+  "Aggregated_inconsistency_score",
+  "X1st_vc_number_of_jumps",
+  "X1st_vc_sum_of_jumps",
+  "X1st_vc_avg_of_jumps",
+  "X2nd_vc_number_of_jumps",
+  "X2nd_vc_sum_of_jumps",
+  "X2nd_vc_avg_of_jumps",
+  "X3rd_vc_number_of_jumps",
+  "X3rd_vc_sum_of_jumps",
+  "X3rd_vc_avg_of_jumps",
+  "X4th_vc_number_of_jumps",
+  "X4th_vc_sum_of_jumps",
+  "X4th_vc_avg_of_jumps",
+  "Suffix_number_of_jumps",
+  "Suffix_vc_sum_of_jumps",
+  "Suffix_vc_avg_of_jumps"
+)
+
+for (metricName in metrics) {
+  metricValues <- as.numeric(data[[metricName]][data[[metricName]] != "--"])
+  metricValues <- metricValues[metricValues != 0]
+  if(length(metricValues) == 0) {
+    next()
+  }
+  metricNames <- c(metricNames, as.character(gsub("_" , " ", metricName)))
+  stDevs <- c(stDevs, round(sd(metricValues), 4))
+  medians <- c(medians, round(median(metricValues) , 4))
+  means <- c(means, round(mean(metricValues), 4 ))
+  mins <- c(mins, round(min(metricValues), 4 ))
+  maxs <- c(maxs, round(max(metricValues), 4))
+}
+
+project_info <- data.frame(metricNames, stDevs, medians, means, mins, maxs)
+names(project_info) <- c("Metric name", "Standard deviation", "Median", "Mean", "Min", "Max")
+print(project_info)
+write.csv(project_info, "metrics_analysis_results.csv", quote=FALSE)
