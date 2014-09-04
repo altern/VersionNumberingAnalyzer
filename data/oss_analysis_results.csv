@@ -1,5 +1,5 @@
 ,Metric names,OSS projects averages,Proprietary projects averages,p-values
-1,3rd version compound number of jumps,3.075,21.952,0
+1,2nd version compound sum of jumps,38.05,310,0.003
 2,3rd version compound sum of jumps,15.875,8718.429,0
 3,3rd version compound avg of jumps,2.074,244.755,0
 4,3rd version compound number of empty jumps,4.675,15.857,0.026
