@@ -1,7 +1,7 @@
 ,Metric names,Mean of 1st metric,Mean of 2nd metric,p-values
-1,Team size vs Number of megalomania severities,260.5833,2.3333,0.0033
-2,Team size vs Sum of megalomania severities,260.5833,2.5833,0.0033
-3,Team size vs Average of megalomania severities,316.2727,1.039,0.0059
-4,Team size vs Aggregated jumps,188.2632,13.6842,0.0269
-5,Team size vs Aggregated empty jumps,261.0833,4.5833,0.0051
-6,Team size vs Aggregated inconsistency score,191.8333,18.1111,0.0406
+1,Team size vs Number of megalomania severities,481.3333,2.4667,0.0015
+2,Team size vs Sum of megalomania severities,481.3333,2.8,0.0024
+3,Team size vs Average of megalomania severities,541.3571,1.0687,0.0017
+4,Team size vs Aggregated jumps,319.9583,11.875,0.0333
+5,Team size vs Aggregated empty jumps,426.0588,4.6471,0.0034
+6,Team size vs Aggregated inconsistency score,174.85,15.9767,0.0239

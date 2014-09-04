@@ -1,16 +1,16 @@
 ,Metric name,Standard deviation,Median,Mean,Min,Max
-1,Aggregated jumps,213.9145,20,84.3208,1,1313
-2,Aggregated empty jumps,2.2692,5,6.1778,1,10
-3,Number of megalomania severities,3.7182,2,3.4118,1,17
-4,Sum of megalomania severities,4.5378,2.5,3.8824,1,20
-5,Average of megalomania severities,0.2281,1,1.1159,1,2
-6,Aggregated inconsistency score,207.6952,21,83.9463,1,1321
-7,X1st vc number of jumps,32.2056,3.5,13.6,1,147
-8,X1st vc sum of jumps,4350.4498,15,1052.35,1,19521
-9,X1st vc avg of jumps,30.5557,3.55,14.1622,1,132.7959
-10,X2nd vc number of jumps,28.522,2,10.4878,1,177
-11,X2nd vc sum of jumps,744.6742,11,203.3415,2,4599
-12,X2nd vc avg of jumps,63.0108,5,18.1286,1.5,404
+1,Aggregated jumps,215.8218,20,85.5192,1,1313
+2,Aggregated empty jumps,2.2538,5,6.1136,1,10
+3,Number of megalomania severities,3.7674,2,3.4545,1,17
+4,Sum of megalomania severities,4.6055,2,3.9091,1,20
+5,Average of megalomania severities,0.2211,1,1.1043,1,2
+6,Aggregated inconsistency score,209.4579,20.5,84.865,1,1321
+7,X1st vc number of jumps,32.9475,5,14.2632,1,147
+8,X1st vc sum of jumps,4462.4943,15,1107.4211,1,19521
+9,X1st vc avg of jumps,31.3309,3.5,14.5918,1,132.7959
+10,X2nd vc number of jumps,28.8762,2,10.6,1,177
+11,X2nd vc sum of jumps,753.6002,11,207.825,2,4599
+12,X2nd vc avg of jumps,63.7724,5,18.4818,1.5,404
 13,X3rd vc number of jumps,18.2411,6,14.2439,1,77
 14,X3rd vc sum of jumps,27765.2122,28,4481.0244,1,177905
 15,X3rd vc avg of jumps,770.7796,3.3333,127.3855,1,4941.8056
