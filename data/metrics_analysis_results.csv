@@ -1,20 +1,20 @@
-,Metric name,Standard deviation,Median,Mean,Min,Max
-1,Aggregated jumps,215.8218,20,85.5192,1,1313
-2,Aggregated empty jumps,2.2538,5,6.1136,1,10
-3,Number of megalomania severities,3.7674,2,3.4545,1,17
-4,Sum of megalomania severities,4.6055,2,3.9091,1,20
-5,Average of megalomania severities,0.2211,1,1.1043,1,2
-6,Aggregated inconsistency score,209.4579,20.5,84.865,1,1321
-7,X1st vc number of jumps,32.9475,5,14.2632,1,147
-8,X1st vc sum of jumps,4462.4943,15,1107.4211,1,19521
-9,X1st vc avg of jumps,31.3309,3.5,14.5918,1,132.7959
-10,X2nd vc number of jumps,28.8762,2,10.6,1,177
-11,X2nd vc sum of jumps,753.6002,11,207.825,2,4599
-12,X2nd vc avg of jumps,63.7724,5,18.4818,1.5,404
-13,X3rd vc number of jumps,18.2411,6,14.2439,1,77
-14,X3rd vc sum of jumps,27765.2122,28,4481.0244,1,177905
-15,X3rd vc avg of jumps,770.7796,3.3333,127.3855,1,4941.8056
-16,X4th vc number of jumps,126.6164,35.5,84.0833,1,455
-17,X4th vc sum of jumps,1450686.4963,4025.5,509847.3333,2,5069323
-18,X4th vc avg of jumps,3897.1369,94.2441,2107.88,1.375,11141.3692
-19,Suffix number of jumps,4.3964,2,3.6522,1,18
+,Standard deviation,Median,Mean,Min,Max
+Aggregated jumps,215.8218,20,85.5192,1,1313
+Aggregated empty jumps,2.2538,5,6.1136,1,10
+Number of megalomania severities,3.7674,2,3.4545,1,17
+Sum of megalomania severities,4.6055,2,3.9091,1,20
+Average of megalomania severities,0.2211,1,1.1043,1,2
+Aggregated inconsistency score,209.4579,20.5,84.865,1,1321
+X1st vc number of jumps,32.9475,5,14.2632,1,147
+X1st vc sum of jumps,4462.4943,15,1107.4211,1,19521
+X1st vc avg of jumps,31.3309,3.5,14.5918,1,132.7959
+X2nd vc number of jumps,28.8762,2,10.6,1,177
+X2nd vc sum of jumps,753.6002,11,207.825,2,4599
+X2nd vc avg of jumps,63.7724,5,18.4818,1.5,404
+X3rd vc number of jumps,18.2411,6,14.2439,1,77
+X3rd vc sum of jumps,27765.2122,28,4481.0244,1,177905
+X3rd vc avg of jumps,770.7796,3.3333,127.3855,1,4941.8056
+X4th vc number of jumps,126.6164,35.5,84.0833,1,455
+X4th vc sum of jumps,1450686.4963,4025.5,509847.3333,2,5069323
+X4th vc avg of jumps,3897.1369,94.2441,2107.88,1.375,11141.3692
+Suffix number of jumps,4.3964,2,3.6522,1,18

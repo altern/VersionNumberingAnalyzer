@@ -1,5 +1,5 @@
-,Metric name,Standard deviation,Median,Mean,Min,Max
-1,Team size,774.1804,32,278.8649,1,4091
-2,Age,4.1534,8,9.0353,2.5,23
-3,Application size,3404.825,18.2,718.5447,0.27,25000
-4,Number of versions,193.0615,90,147.2203,15,1282
+,Standard deviation,Median,Mean,Min,Max
+Team size,774.1804,32,278.8649,1,4091
+Age,4.1534,8,9.0353,2.5,23
+Application size,3404.825,18.2,718.5447,0.27,25000
+Number of versions,193.0615,90,147.2203,15,1282

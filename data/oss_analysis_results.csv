@@ -1,10 +1,10 @@
-,Metric names,OSS projects averages,Proprietary projects averages,p-values
-1,2nd version compound sum of jumps,47.447,310,0.007
-2,3rd version compound sum of jumps,16.711,8718.429,0
-3,3rd version compound avg of jumps,2.183,244.755,0
-4,3rd version compound number of empty jumps,5.395,15.857,0.045
-5,4th version compound number of jumps,1.842,44.714,0
-6,4th version compound sum of jumps,95.816,291167.952,0
-7,4th version compound avg of jumps,1.369,1202.026,0
-8,Aggregated jumps,14.579,185.381,0
-9,Aggregated inconsistency score,19.16,191.637,0
+,OSS projects averages,Proprietary projects averages,p-values
+2nd version compound number of jumps,1.921,16.714,0.003
+2nd version compound sum of jumps,47.447,310,0.007
+3rd version compound number of jumps,3.237,21.952,0
+3rd version compound sum of jumps,16.711,8718.429,0
+3rd version compound avg of jumps,2.183,244.755,0
+3rd version compound number of empty jumps,5.395,15.857,0.045
+4th version compound number of jumps,1.842,44.714,0
+4th version compound sum of jumps,95.816,291167.952,0
+4th version compound avg of jumps,1.369,1202.026,0

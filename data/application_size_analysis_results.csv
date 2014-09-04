@@ -1,6 +1,6 @@
-,Metric names,Mean of 1st metric,Mean of 2nd metric,p-values,covariances
-1,Application size vs Number of versions,53.5157,91.6809,2e-04,-660.2386
-2,Application size vs Number of megalomania severities,53.0515,2.6923,3e-04,-14.7767
-3,Application size vs Sum of megalomania severities,53.0515,2.9231,4e-04,-25.4595
-4,Application size vs Average of megalomania severities,54.5681,1.0554,0,-2.1085
-5,Application size vs Aggregated empty jumps,58.18,5,0.0012,14.5141
+,Mean of 1st metric,Mean of 2nd metric,p-values,covariances
+Application size vs Number of versions,53.5157,91.6809,2e-04,-0.1178
+Application size vs Number of megalomania severities,53.0515,2.6923,3e-04,-0.0936
+Application size vs Sum of megalomania severities,53.0515,2.9231,4e-04,-0.1558
+Application size vs Average of megalomania severities,54.5681,1.0554,0,-0.2176
+Application size vs Aggregated empty jumps,58.18,5,0.0012,0.1008
