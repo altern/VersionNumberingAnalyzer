@@ -1,5 +1,6 @@
 ,Metric names,SDK projects averages,Non-SDK projects averages,p-values
-1,4th version compound sum of jumps,182.05,149134.805,0.048
-2,4th version compound avg of jumps,2.601,615.672,0.048
-3,Aggregated jumps,16.75,112.683,0.021
-4,Aggregated inconsistency score,20.977,118.229,0.015
+1,4th version compound number of jumps,3.5,24.077,0.044
+2,4th version compound sum of jumps,182.05,156782.744,0.039
+3,4th version compound avg of jumps,2.601,647.245,0.039
+4,Aggregated jumps,16.75,105.231,0.019
+5,Aggregated inconsistency score,20.977,111.036,0.012
